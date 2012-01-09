@@ -1,0 +1,19 @@
+e glob syntax.
+syntax: glob
+*.ser
+*.class
+*~
+*.bak
+*.off
+*.old
+.DS_Store
+*.xcuserstate
+build/**/*
+
+# XCode user local
+*.xcodeproj/xcuserdata/**/*
+*.xcodeproj/project.xcworkspace/**/*
+*.xcodeproj/project.xcworkspace/*
+
+iOS/cavevideos.xcodeproj/xcuserdata/matiaspan.xcuserdatad/xcdebugger/Breakpoints.xcbkptlist
+/webapp/nintendo/nbproject/private/

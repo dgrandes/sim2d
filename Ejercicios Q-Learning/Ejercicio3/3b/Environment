@@ -1,0 +1,58 @@
+{
+    "height": 50,
+    "width": 50,
+    "circleObstacles": [],
+    "exits": [
+        {
+            "id": "exit1",
+            "body": {
+                "npoints": 4,
+                "xpoints": [
+                    25,
+                    35,
+                    35,
+                    25
+                ],
+                "ypoints": [
+                    45,
+                    45,
+                    55,
+                    55
+                ]
+            },
+            "preservesTargets": true
+        }
+    ],
+    "spawnPoints": [
+        {
+            "generatesOnAgentDeletion": true,
+            "preservesSpawns": false,
+            "lapsusOne": {
+                "time": 20000,
+                "f": 0.00001
+            },
+            "lapsusTwo": {
+                "time": 30000,
+                "f": 0.00001
+            },
+            "desiredSpeed": 2.4,
+            "desiredExitId": "exit1",
+            "id": "spawn1",
+            "body": {
+                "npoints": 4,
+                "xpoints": [
+                    29,
+                    31,
+                    31,
+                    29
+                ],
+                "ypoints": [
+                    15,
+                    15,
+                    25,
+                    25
+                ]
+            }
+        }
+    ]
+}

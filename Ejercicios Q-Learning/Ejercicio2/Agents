@@ -1,0 +1,129 @@
+{
+    "agents": {
+        "1": {
+            "mass": 90.0,
+            "radius": 0.4,
+            "movementType":"social",
+            "position": {
+                "x": 2,
+                "y": 23.0
+            },
+            "velocity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "id": 1,
+            "destination": {
+                "x": 48.5,
+                "y": 22.5
+            },
+            "exitIdentifier": "exit1"
+        },
+        "2": {
+            "mass": 90.0,
+            "radius": 0.4,
+            "movementType":"social",
+            "position": {
+                "x": 3.25,
+                "y": 22.0
+            },
+            "velocity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "id": 2,
+            "destination": {
+                "x": 48.5,
+                "y": 22.5
+            },
+            "exitIdentifier": "exit1"
+        }
+        ,
+        "3": {
+            "mass": 90.0,
+            "radius": 0.4,
+            "movementType":"social",
+            "position": {
+                "x": 2.25,
+                "y": 23.0
+            },
+            "velocity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "id": 3,
+            "destination": {
+                "x": 48.5,
+                "y": 23.5
+            },
+            "exitIdentifier": "exit1"
+        }
+        ,
+        "4": {
+            "mass": 90.0,
+            "radius": 0.4,
+            "movementType":"social",
+            "position": {
+                "x": 2.25,
+                "y": 22.0
+            },
+            "velocity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "id": 4,
+            "destination": {
+                "x": 48.5,
+                "y": 22.5
+            },
+            "exitIdentifier": "exit1"
+        },
+        
+        "5": {
+            "mass": 90.0,
+            "radius": 0.4,
+            "movementType":"social",
+            "position": {
+                "x": 2.25,
+                "y": 22.0
+            },
+            "velocity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "id": 5,
+            "destination": {
+                "x": 48.5,
+                "y": 22.5
+            },
+            "exitIdentifier": "exit1"
+        },
+        
+        "6": {
+            "mass": 90.0,
+            "radius": 0.4,
+            "movementType":"social",
+            "position": {
+                "x": 2.25,
+                "y": 22.0
+            },
+            "velocity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "id": 6,
+            "destination": {
+                "x": 48.5,
+                "y": 21.5
+            },
+            "exitIdentifier": "exit1"
+        }
+        
+    },
+    "A": 2000.0,
+    "B": 0.08,
+    "Kn": 100.0,
+    "Kt": 100.0,
+    "vDesired": 1.4,
+    "tao": 0.5
+}

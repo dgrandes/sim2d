@@ -1,0 +1,745 @@
+{
+    "agents": {
+        "1": {
+            "mass": 90.0,
+            "radius": 0.2,
+            "movementType":"social",
+            "position": {
+                "x": 0.5,
+                "y": 20.5
+            },
+            "velocity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "id": 1,
+            "destination": {
+                "x": 40.5,
+                "y": 20.5
+            },
+	    "originalSpawnPoint":"spawn1",
+            "exitIdentifier": "exit1"
+        },
+        "2": {
+            "mass": 90.0,
+            "radius": 0.2,
+            "movementType":"social",
+            "position": {
+                "x": 0.5,
+                "y": 21.5
+            },
+            "velocity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "id": 2,
+            "destination": {
+                "x": 40.5,
+                "y": 21.5
+            },
+	    "originalSpawnPoint":"spawn1",
+            "exitIdentifier": "exit1"
+        }
+        ,
+        "3": {
+            "mass": 90.0,
+            "radius": 0.2,
+            "movementType":"social",
+            "position": {
+                "x": 0.5,
+                "y": 22.5
+            },
+            "velocity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "id": 3,
+            "destination": {
+                "x": 40.5,
+                "y": 22.5
+            },
+	    "originalSpawnPoint":"spawn1",
+            "exitIdentifier": "exit1"
+        }
+        ,
+        "4": {
+            "mass": 90.0,
+            "radius": 0.2,
+            "movementType":"social",
+            "position": {
+                "x": 0.5,
+                "y": 23.5
+            },
+            "velocity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "id": 4,
+            "destination": {
+                "x": 40.5,
+                "y": 23.5
+            },
+	    "originalSpawnPoint":"spawn1",
+            "exitIdentifier": "exit1"
+        },
+        
+        "5": {
+            "mass": 90.0,
+            "radius": 0.2,
+            "movementType":"social",
+            "position": {
+                "x": 0.5,
+                "y": 24.5
+            },
+            "velocity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "id": 5,
+            "destination": {
+                "x": 40.5,
+                "y": 24.5
+            },
+	    "originalSpawnPoint":"spawn1",
+            "exitIdentifier": "exit1"
+        },
+        
+        "6": {
+            "mass": 90.0,
+            "radius": 0.2,
+            "movementType":"social",
+            "position": {
+                "x": 1.5,
+                "y": 20.5
+            },
+            "velocity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "id": 6,
+            "destination": {
+                "x": 41.5,
+                "y": 20.5
+            },
+	    "originalSpawnPoint":"spawn1",
+            "exitIdentifier": "exit1"
+        },
+        
+        "8": {
+            "mass": 90.0,
+            "radius": 0.2,
+            "movementType":"social",
+            "position": {
+                "x": 1.5,
+                "y": 21.5
+            },
+            "velocity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "id": 8,
+            "destination": {
+                "x": 41.5,
+                "y": 21.5
+            },
+	    "originalSpawnPoint":"spawn1",
+            "exitIdentifier": "exit1"
+        },
+        
+        "9": {
+            "mass": 90.0,
+            "radius": 0.2,
+            "movementType":"social",
+            "position": {
+                "x": 1.5,
+                "y": 22.5
+            },
+            "velocity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "id": 9,
+            "destination": {
+                "x": 41.5,
+                "y": 22.5
+            },
+	    "originalSpawnPoint":"spawn1",
+            "exitIdentifier": "exit1"
+        },
+        
+        "10": {
+            "mass": 90.0,
+            "radius": 0.2,
+            "movementType":"social",
+            "position": {
+                "x": 1.5,
+                "y": 23.5
+            },
+            "velocity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "id": 10,
+            "destination": {
+                "x": 41.5,
+                "y": 23.5
+            },
+	    "originalSpawnPoint":"spawn1",
+            "exitIdentifier": "exit1"
+        },
+        
+        "11": {
+            "mass": 90.0,
+            "radius": 0.2,
+            "movementType":"social",
+            "position": {
+                "x": 1.5,
+                "y": 24.5
+            },
+            "velocity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "id": 11,
+            "destination": {
+                "x": 41.5,
+                "y": 24.5
+            },
+	    "originalSpawnPoint":"spawn1",
+            "exitIdentifier": "exit1"
+        },
+        
+        "12": {
+            "mass": 90.0,
+            "radius": 0.2,
+            "movementType":"social",
+            "position": {
+                "x": 2.5,
+                "y": 20.5
+            },
+            "velocity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "id": 12,
+            "destination": {
+                "x": 42.5,
+                "y": 20.5
+            },
+	    "originalSpawnPoint":"spawn1",
+            "exitIdentifier": "exit1"
+        },
+        
+        "13": {
+            "mass": 90.0,
+            "radius": 0.2,
+            "movementType":"social",
+            "position": {
+                "x": 2.5,
+                "y": 21.5
+            },
+            "velocity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "id": 13,
+            "destination": {
+                "x": 42.5,
+                "y": 21.5
+            },
+	    "originalSpawnPoint":"spawn1",
+            "exitIdentifier": "exit1"
+        },
+        
+        "14": {
+            "mass": 90.0,
+            "radius": 0.2,
+            "movementType":"q-learning",
+            "position": {
+                "x": 2.5,
+                "y": 22.5
+            },
+            "velocity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "id": 14,
+            "destination": {
+                "x": 42.5,
+                "y": 22.5
+            },
+	    "originalSpawnPoint":"spawn1",
+            "exitIdentifier": "exit1"
+        },
+        
+        "15": {
+            "mass": 90.0,
+            "radius": 0.2,
+            "movementType":"social",
+            "position": {
+                "x": 2.5,
+                "y": 23.5
+            },
+            "velocity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "id": 15,
+            "destination": {
+                "x": 42.5,
+                "y": 23.5
+            },
+	    "originalSpawnPoint":"spawn1",
+            "exitIdentifier": "exit1"
+        },
+        
+        "16": {
+            "mass": 90.0,
+            "radius": 0.2,
+            "movementType":"social",
+            "position": {
+                "x": 2.5,
+                "y": 24.5
+            },
+            "velocity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "id":16,
+            "destination": {
+                "x": 42.5,
+                "y": 24.5
+            },
+	    "originalSpawnPoint":"spawn1",
+            "exitIdentifier": "exit1"
+        },
+        
+        "17": {
+            "mass": 90.0,
+            "radius": 0.2,
+            "movementType":"social",
+            "position": {
+                "x": 3.5,
+                "y": 20.5
+            },
+            "velocity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "id": 17,
+            "destination": {
+                "x": 43.5,
+                "y": 20.5
+            },
+	    "originalSpawnPoint":"spawn1",
+            "exitIdentifier": "exit1"
+        },
+        
+        "18": {
+            "mass": 90.0,
+            "radius": 0.2,
+            "movementType":"social",
+            "position": {
+                "x": 3.5,
+                "y": 21.5
+            },
+            "velocity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "id": 18,
+            "destination": {
+                "x": 43.5,
+                "y": 21.5
+            },
+	    "originalSpawnPoint":"spawn1",
+            "exitIdentifier": "exit1"
+        },
+        
+        "19": {
+            "mass": 90.0,
+            "radius": 0.2,
+            "movementType":"social",
+            "position": {
+                "x": 3.5,
+                "y": 22.5
+            },
+            "velocity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "id": 19,
+            "destination": {
+                "x": 43.5,
+                "y": 22.5
+            },
+	    "originalSpawnPoint":"spawn1",
+            "exitIdentifier": "exit1"
+        },
+        
+        "20": {
+            "mass": 90.0,
+            "radius": 0.2,
+            "movementType":"social",
+            "position": {
+                "x": 3.5,
+                "y": 23.5
+            },
+            "velocity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "id": 20,
+            "destination": {
+                "x": 43.5,
+                "y": 23.5
+            },
+	    "originalSpawnPoint":"spawn1",
+            "exitIdentifier": "exit1"
+        },
+        
+        "21": {
+            "mass": 90.0,
+            "radius": 0.2,
+            "movementType":"social",
+            "position": {
+                "x": 3.5,
+                "y": 24.5
+            },
+            "velocity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "id": 21,
+            "destination": {
+                "x": 43.5,
+                "y": 24.5
+            },
+	    "originalSpawnPoint":"spawn1",
+            "exitIdentifier": "exit1"
+        },
+        
+        "22": {
+            "mass": 90.0,
+            "radius": 0.2,
+            "movementType":"social",
+            "position": {
+                "x": 4.5,
+                "y": 20.5
+            },
+            "velocity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "id": 22,
+            "destination": {
+                "x": 44.5,
+                "y": 20.5
+            },
+	    "originalSpawnPoint":"spawn1",
+            "exitIdentifier": "exit1"
+        },
+        
+        "23": {
+            "mass": 90.0,
+            "radius": 0.2,
+            "movementType":"social",
+            "position": {
+                "x": 4.5,
+                "y": 21.5
+            },
+            "velocity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "id":23,
+            "destination": {
+                "x": 44.5,
+                "y": 21.5
+            },
+	    "originalSpawnPoint":"spawn1",
+            "exitIdentifier": "exit1"
+        },
+        
+        "24": {
+            "mass": 90.0,
+            "radius": 0.2,
+            "movementType":"social",
+            "position": {
+                "x": 4.5,
+                "y": 22.5
+            },
+            "velocity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "id": 24,
+            "destination": {
+                "x": 44.5,
+                "y": 22.5
+            },
+	    "originalSpawnPoint":"spawn1",
+            "exitIdentifier": "exit1"
+        },
+        
+        "25": {
+            "mass": 90.0,
+            "radius": 0.2,
+            "movementType":"social",
+            "position": {
+                "x": 4.5,
+                "y": 23.5
+            },
+            "velocity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "id": 25,
+            "destination": {
+                "x": 44.5,
+                "y": 23.5
+            },
+	    "originalSpawnPoint":"spawn1",
+            "exitIdentifier": "exit1"
+        },
+        
+        "26": {
+            "mass": 90.0,
+            "radius": 0.2,
+            "movementType":"social",
+            "position": {
+                "x": 4.5,
+                "y": 24.5
+            },
+            "velocity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "id": 26,
+            "destination": {
+                "x": 44.5,
+                "y": 24.5
+            },
+	    "originalSpawnPoint":"spawn1",
+            "exitIdentifier": "exit1"
+        },
+        
+        
+        "27": {
+            "mass": 90.0,
+            "radius": 0.2,
+            "movementType":"social",
+            "position": {
+                "x": 5.5,
+                "y": 20.5
+            },
+            "velocity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "id": 27,
+            "destination": {
+                "x": 45.5,
+                "y": 20.5
+            },
+	    "originalSpawnPoint":"spawn1",
+            "exitIdentifier": "exit1"
+        },
+        
+        "28": {
+            "mass": 90.0,
+            "radius": 0.2,
+            "movementType":"social",
+            "position": {
+                "x": 5.5,
+                "y": 21.5
+            },
+            "velocity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "id": 28,
+            "destination": {
+                "x": 45.5,
+                "y": 21.5
+            },
+	    "originalSpawnPoint":"spawn1",
+            "exitIdentifier": "exit1"
+        },
+        
+        "29": {
+            "mass": 90.0,
+            "radius": 0.2,
+            "movementType":"social",
+            "position": {
+                "x": 5.5,
+                "y": 22.5
+            },
+            "velocity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "id": 29,
+            "destination": {
+                "x": 45.5,
+                "y": 22.5
+            },
+	    "originalSpawnPoint":"spawn1",
+            "exitIdentifier": "exit1"
+        },
+        
+        "30": {
+            "mass": 90.0,
+            "radius": 0.2,
+            "movementType":"social",
+            "position": {
+                "x": 5.5,
+                "y": 23.5
+            },
+            "velocity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "id": 30,
+            "destination": {
+                "x": 45.5,
+                "y": 23.5
+            },
+	    "originalSpawnPoint":"spawn1",
+            "exitIdentifier": "exit1"
+        },
+        
+        "31": {
+            "mass": 90.0,
+            "radius": 0.2,
+            "movementType":"social",
+            "position": {
+                "x": 5.5,
+                "y": 24.5
+            },
+            "velocity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "id":31,
+            "destination": {
+                "x": 45.5,
+                "y": 24.5
+            },
+	    "originalSpawnPoint":"spawn1",
+            "exitIdentifier": "exit1"
+        },
+        
+        "32": {
+            "mass": 90.0,
+            "radius": 0.2,
+            "movementType":"social",
+            "position": {
+                "x": 6.5,
+                "y": 20.5
+            },
+            "velocity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "id": 32,
+            "destination": {
+                "x": 46.5,
+                "y": 20.5
+            },
+	    "originalSpawnPoint":"spawn1",
+            "exitIdentifier": "exit1"
+        },
+        
+        "33": {
+            "mass": 90.0,
+            "radius": 0.2,
+            "movementType":"social",
+            "position": {
+                "x": 6.5,
+                "y": 21.5
+            },
+            "velocity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "id": 33,
+            "destination": {
+                "x": 46.5,
+                "y": 21.5
+            },
+	    "originalSpawnPoint":"spawn1",
+            "exitIdentifier": "exit1"
+        },
+        
+        "34": {
+            "mass": 90.0,
+            "radius": 0.2,
+            "movementType":"social",
+            "position": {
+                "x": 6.5,
+                "y": 22.5
+            },
+            "velocity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "id":34,
+            "destination": {
+                "x": 46.5,
+                "y": 22.5
+            },
+	    "originalSpawnPoint":"spawn1",
+            "exitIdentifier": "exit1"
+        },
+        
+        "36": {
+            "mass": 90.0,
+            "radius": 0.2,
+            "movementType":"social",
+            "position": {
+                "x": 6.5,
+                "y": 23.5
+            },
+            "velocity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "id": 36,
+            "destination": {
+                "x": 46.5,
+                "y": 23.5
+            },
+	    "originalSpawnPoint":"spawn1",
+            "exitIdentifier": "exit1"
+        },
+        
+        "35": {
+            "mass": 90.0,
+            "radius": 0.2,
+            "movementType":"social",
+            "position": {
+                "x": 6.5,
+                "y": 24.5
+            },
+            "velocity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "id": 35,
+            "destination": {
+                "x": 46.5,
+                "y": 24.5
+            },
+	    "originalSpawnPoint":"spawn1",
+            "exitIdentifier": "exit1"
+        }
+        
+    },
+    "A": 2000.0,
+    "B": 0.08,
+    "Kn": 100.0,
+    "Kt": 100.0,
+    "vDesired": 1.4,
+    "tao": 0.5
+}

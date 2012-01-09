@@ -1,0 +1,50 @@
+{
+    "agents": {
+        "2": {
+            "mass": 90,
+            "radius": 0.4,
+            "movementType": "idle",
+            "position": {
+                "x": 26,
+                "y": 40
+            },
+            "velocity": {
+                "x": 0,
+                "y": 0
+            },
+            "id": 2,
+            "destination": {
+                "x": 30,
+                "y": 40
+            },
+	    "originalSpawnPoint": "spawn1",
+            "exitIdentifier": "exit1"
+        },
+        "3": {
+            "mass": 90,
+            "radius": 0.4,
+            "movementType": "q-interpreter",
+            "position": {
+                "x": 30,
+                "y": 20
+            },
+            "velocity": {
+                "x": 0,
+                "y": 0
+            },
+            "id": 3,
+            "destination": {
+                "x": 30,
+                "y": 50
+            },
+            "originalSpawnPoint": "spawn1",
+            "exitIdentifier": "exit1"
+        }
+    },
+    "A": 2000,
+    "B": 0.08,
+    "Kn": 100000,
+    "Km": 100000,
+    "vDesired": 1.4,
+    "tao": 0.5
+}

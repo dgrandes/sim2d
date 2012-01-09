@@ -1,0 +1,100 @@
+{
+    "height": 50.0,
+    "width": 50.0,
+    "polygonObstacles": [
+        {
+            "body": {
+                "npoints": 4,
+                "xpoints": [
+                    -15,
+                    75,
+                    75,
+                    -15
+                ],
+                "ypoints": [
+                    25,
+                    25,
+                    75,
+                    75
+                ]
+            }
+        },
+        {
+            "body": {
+                "npoints": 4,
+                "xpoints": [
+                    -15,
+                    75,
+                    75,
+                    -15
+                ],
+                "ypoints": [
+                    20,
+                    20,
+                    -25,
+                    -25
+                ]
+            }
+        }
+    ],
+    "circleObstacles": [
+        
+    ],
+    "exits": [
+        {
+            "id": "exit1",
+            "body": {
+                "npoints": 4,
+                "xpoints": [
+                    40,
+                    51,
+                    51,
+                    40 
+                ],
+                "ypoints": [
+                    20,
+                    20,
+                    25,
+                    25 
+                ] 
+            },
+            "preservesTargets":false 
+        } 
+    ],
+    "spawnPoints": [
+        {
+	    "id":"spawn1",
+            "body": {
+                "npoints": 4,
+                "xpoints": [
+                    0,
+                    7,
+                    7,
+                    0
+                ],
+                "ypoints": [
+                    20,
+                    20,
+                    25,
+                    25
+                ]
+            },
+            "generatesOnAgentDeletion": true,
+            "preservesSpawns": true,
+            "lapsusOne": {
+                "time": 20000,
+                "f": 0.00001
+            },
+            "lapsusTwo": {
+                "time": 30000,
+                "f": 0.00001
+            },
+            "massMin": 65,
+            "massMax": 75,
+            "radiusMin": 0.2,
+            "radiusMax": 0.4,
+            "desiredSpeed": 1.2,
+            "desiredExitId": "exit1"
+        }
+    ]
+}
