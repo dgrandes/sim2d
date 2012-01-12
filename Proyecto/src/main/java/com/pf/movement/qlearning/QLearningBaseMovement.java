@@ -347,7 +347,7 @@ public abstract class QLearningBaseMovement implements IAgentMovement {
 	}
 	
 	
-	protected float[] senseObstacles(Agent agent, AgentManager agentManager,
+	public float[] senseObstacles(Agent agent, AgentManager agentManager,
 			EnvironmentManager environment, Vector2 desiredVelocity) {
 
 		float qStatus[] = new float[slices + 2];
@@ -393,6 +393,8 @@ public abstract class QLearningBaseMovement implements IAgentMovement {
 						agentManager, environment);
 			}
 		}
+		
+		
 
 		return qStatus;
 	}
@@ -429,27 +431,26 @@ public abstract class QLearningBaseMovement implements IAgentMovement {
 		//Ahora el riesgo de un obstaculo es considerable
 		if (risk == 0)
 		{
-			risk = checkRiskForObstacles(self, firstPoint, secondPoint, agentManager, environment);
+			risk = checkRiskForObstacles(self,  (List<PolygonObstacle>) environment.getPolygonObstacles(), firstPoint, secondPoint);
 
 		}
 		
 		return risk;
 	}
-
-	protected float checkRiskForObstacles(Agent self, Vector2 firstPoint,
-			Vector2 secondPoint, AgentManager agentManager,
-			EnvironmentManager environment)
-	{
+	
+	public float checkRiskForObstacles(Agent a, List<PolygonObstacle> obstacles,
+			Vector2 pointa, Vector2 pointb) {
 		float triangle_radius = 10;
 		float risk = 0;
-		if(environment.getPolygonObstacles() == null)
+		if(obstacles == null)
 			return 0;
-		for(PolygonObstacle obstacle : environment.getPolygonObstacles())
+		for(PolygonObstacle obstacle : obstacles)
 		{
+			
 			//Esta muy lejos para ser sensado
-			if(obstacle.distanceTo(self) > triangle_radius)
+			if(obstacle.distanceTo(a) > triangle_radius)
 				continue;
-			if(obstacle.containsPoint(firstPoint) || obstacle.containsPoint(secondPoint))
+			if(obstacle.containsPoint(pointa) || obstacle.containsPoint(pointb))
 				risk = 1;
 			else
 			{
@@ -457,21 +458,35 @@ public abstract class QLearningBaseMovement implements IAgentMovement {
 				int npoints = 3;
 				int[] xpoints = new int[npoints];
 				int[] ypoints = new int[npoints];
-				xpoints[0] = (int)self.position.getX();
-				xpoints[1] = (int)firstPoint.getX();
-				xpoints[2] = (int)secondPoint.getX();
-				ypoints[0] = (int)self.position.getY();
-				ypoints[1] = (int)firstPoint.getY();
-				ypoints[2] = (int)secondPoint.getY();
+				xpoints[0] = (int)a.position.getX();
+				xpoints[1] = (int)pointa.getX();
+				xpoints[2] = (int)pointb.getX();
+				ypoints[0] = (int)a.position.getY();
+				ypoints[1] = (int)pointa.getY();
+				ypoints[2] = (int)pointb.getY();
 				
 				Polygon triangle_shape = new Polygon(xpoints, ypoints, 3);
 				if(triangle_shape.intersects(obstacle.getShape().getBounds2D()))
-					risk = 1;
+				{
+					Vector2 relativeSpeed = a.velocity.scale(-1);
+					Vector2 obs_center = new Vector2((float)obstacle.getShape().getBounds2D().getX(),(float)obstacle.getShape().getBounds2D().getY());
+					float riskValue = relativeSpeed.dot(a.position.sub(obs_center));
+					
+					if (riskValue <= -0.05) {
+						risk = 2;
+						break;
+					} else if (riskValue < 0) {
+						risk = 1;
+					}
+				}
 			}
 		}
 		
 		return risk;
+		
 	}
+
+
 	protected boolean pointInTriangle(Vector2 p, Vector2 a, Vector2 b, Vector2 c) {
 		return sameSide(p, a, b, c) && sameSide(p, b, a, c)
 				&& sameSide(p, c, a, b);
