@@ -99,6 +99,10 @@ public class Agent implements Cloneable{
 		return body;
 	}
 	
+	public Point2D getPositionAsPoint2D()
+	{
+		return new Point2D.Float(position.getX(), position.getY());
+	}
 	public boolean containsPoint(Point2D p)
 	{
 		body = new Ellipse2D.Float(position.getX(), position.getY(),radius*2, radius*2);

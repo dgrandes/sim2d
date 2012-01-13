@@ -30,9 +30,9 @@ public class ObstacleSensingTest {
 	public void setUp() throws Exception {
 		mvt = new QLearningMovement();
 		a = new Agent();
-		a.radius = 10;
+		a.radius = 1;
 		a.position = new Vector2(0,0);
-		a.setvDesired(1);
+		a.setvDesired(10);
 		obstacles = new ArrayList<PolygonObstacle>();
 		pointa =  new Vector2(10,0);
 		pointb = new Vector2(0,10);
@@ -46,7 +46,12 @@ public class ObstacleSensingTest {
 	@Test
 	public void testRiskOfNoObstacles() throws Exception{
 		float risk = mvt.checkRiskForObstacles(a,obstacles,pointa, pointb);
-		
+		assertThat(risk, is(0.0f));
+	}
+	
+	@Test
+	public void testRiskIfObstaclesIsNull() throws Exception{
+		float risk = mvt.checkRiskForObstacles(a,null,pointa, pointb);
 		assertThat(risk, is(0.0f));
 	}
 	
@@ -56,15 +61,21 @@ public class ObstacleSensingTest {
 		int[] ypoints = {20,20,-20,-20};
 		PolygonObstacle o = new PolygonObstacle(xpoints,ypoints,4);
 		obstacles.add(o);
+		a.velocity = new Vector2(0,10);
+		a.setvDesired(10);
+		a.position = new Vector2(0,-25);
 		float risk = mvt.checkRiskForObstacles(a, obstacles, pointa, pointb);
 		assertThat(risk, not(is(0.0f)));
 	}
+	
 	
 	@Test
 	public void testRiskIsNotZeroAtTheEdge() throws Exception{
 		int[] xpoints = {-20,20,20,-20};
 		int[] ypoints = {20,20,-20,-20};
 		a.position = new Vector2(0,-30);
+		a.velocity = new Vector2(0,1);
+		a.setvDesired(2);
 		pointa = new Vector2(-1,-20);
 		pointb = new Vector2(1,-20);
 		PolygonObstacle o = new PolygonObstacle(xpoints,ypoints,4);
@@ -80,6 +91,7 @@ public class ObstacleSensingTest {
 		a.position = new Vector2(0,-41);
 		pointa = new Vector2(-1,-20);
 		pointb = new Vector2(1,-20);
+		a.velocity = new Vector2(0,10);
 		PolygonObstacle o = new PolygonObstacle(xpoints,ypoints,4);
 		obstacles.add(o);
 		float risk = mvt.checkRiskForObstacles(a, obstacles, pointa, pointb);

@@ -22,14 +22,31 @@ public class PolygonObstacle extends Obstacle {
 	@Override
 	public float distanceTo(Agent agent) {
 		
-		Point2D agentPosition = new Point2D.Float(agent.position.getX(), agent.position.getY());
+		Point2D agentPosition = agent.getPositionAsPoint2D();
 		Line2D nearestLine = NearestLineToPoint(agentPosition);
+		
 		float distanceToAgent = (float) (nearestLine.ptSegDist(agentPosition) - agent.radius);
 
 		//System.out.println("distance to agent "+distanceToAgent);
 		return distanceToAgent;
 	}
 
+	public Vector2 closestPointToAgent(Agent a)
+	{
+		if(contains(a))
+			return null;
+		Point2D agentPosition = a.getPositionAsPoint2D();
+		Line2D nearestLine = NearestLineToPoint(agentPosition);
+		Line2D AgentToMidObstacle = new Line2D.Float(agentPosition, getMiddlePoint2D());
+		return IntersectionBetweenTwoLines(nearestLine, AgentToMidObstacle);
+	}
+	
+
+	private Point2D getMiddlePoint2D() {
+		Rectangle2D b = body.getBounds2D();
+		return new Point2D.Float((float)b.getCenterX(),(float)b.getCenterY());
+		
+	}
 	@Override
 	public Shape getShape() {
 		return body;

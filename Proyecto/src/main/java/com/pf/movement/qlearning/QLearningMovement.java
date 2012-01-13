@@ -1,5 +1,10 @@
 package com.pf.movement.qlearning;
 
+import java.util.List;
+
+import com.pf.math.Vector2;
+import com.pf.model.Agent;
+
 
 public class QLearningMovement extends QLearningBaseMovement {
 
@@ -55,5 +60,6 @@ public class QLearningMovement extends QLearningBaseMovement {
 		// TODO Auto-generated method stub
 		return "q-learning";
 	}
+
 
 }
