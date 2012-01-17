@@ -441,22 +441,19 @@ public abstract class QLearningBaseMovement implements IAgentMovement {
 			if (agent.id == a.id) {
 				continue;
 			}
-
 			if (pointInTriangle(agent.position, a.position, pointa, pointb)) {
-
 				Vector2 relativeSpeed = a.velocity.sub(agent.velocity);
 				float riskValue = relativeSpeed.dot(a.position
 						.sub(agent.position));
-				System.out.println(riskValue);
+				risk = riskValue;
+				
 				if (riskValue <= -0.05) {
 					risk = 2;
 					break;
 				} else if (riskValue < 0) {
 					risk = 1;
 				}
-
 			}
-
 		}
 		return risk;
 	}
@@ -493,12 +490,13 @@ public abstract class QLearningBaseMovement implements IAgentMovement {
 						.intersects(obstacle.getShape().getBounds2D()))
 					riskPresent = true;
 			}
-		
+
 			if (riskPresent) {
 				Vector2 relativeSpeed = a.velocity.scale(-1);
-				
+
 				Vector2 closest_point = obstacle.closestPointToAgent(a);
-				float riskValue = relativeSpeed.dot(a.position.sub(closest_point));
+				float riskValue = relativeSpeed.dot(a.position
+						.sub(closest_point));
 
 				if (riskValue <= -0.05) {
 					risk = 2;
