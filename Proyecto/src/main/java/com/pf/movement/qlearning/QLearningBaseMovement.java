@@ -347,6 +347,7 @@ public abstract class QLearningBaseMovement implements IAgentMovement {
 		float sliceAngle = (float) (maxViewAngle / slices * Math.PI / 180);
 		float angleOffset = (float) Math.acos(desiredVelocity.normalize().dot(
 				referenceVector));
+		
 
 		for (int i = 0, j = 0; i < slices; i++, j++) {
 
@@ -431,6 +432,38 @@ public abstract class QLearningBaseMovement implements IAgentMovement {
 		return risk;
 	}
 
+	public float calculateScalarValue(Agent a, Agent b) {
+		Vector2 relVel = b.velocity.sub(a.velocity);
+		Vector2 agentsSeparation = a.position.sub(b.position);
+		float scalarProduct = relVel.dot(agentsSeparation);
+		
+		return scalarProduct;
+	}
+	
+	
+	public float calculateScalarValue(Agent a, Agent b, float delta) {
+		Agent a_scaled = (Agent)a.clone();
+		Agent b_scaled = (Agent)b.clone();
+		a_scaled.velocity.scale(1/delta);
+		b_scaled.velocity.scale(1/delta);
+		return calculateScalarValue(a_scaled, b_scaled);
+	}
+	
+
+	public Integer danger(float scalar, float desiredVel) {
+		Integer danger = 0;
+		float mod = desiredVel;
+		if(scalar <= 0.0)
+			danger = 0;
+		else if(scalar <= mod/2.0f)
+			danger = 1;
+		else if(scalar >= mod)
+			danger = 2;
+		return danger;
+		
+	}
+
+	
 	public float checkRiskForAgent(Agent a, List<Agent> drones, Vector2 pointa,
 			Vector2 pointb) {
 		// TODO Auto-generated method stub
@@ -442,8 +475,7 @@ public abstract class QLearningBaseMovement implements IAgentMovement {
 				continue;
 			}
 			if (pointInTriangle(agent.position, a.position, pointa, pointb)) {
-				Vector2 relativeSpeed = a.velocity.sub(agent.velocity);
-				float riskValue = relativeSpeed.dot(a.position
+				/*float riskValue = relativeSpeed.dot(a.position
 						.sub(agent.position));
 				risk = riskValue;
 				
@@ -452,7 +484,19 @@ public abstract class QLearningBaseMovement implements IAgentMovement {
 					break;
 				} else if (riskValue < 0) {
 					risk = 1;
+				}*/
+				float delta;
+				try {
+					delta = Simulator.getSimEnvironment().getEnvironment().deltaTime;
+
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
+				delta = 0.001f;
+				float scalar = calculateScalarValue(a, agent, delta);
+				risk = danger(scalar, a.getvDesired());
+				
+				
 			}
 		}
 		return risk;

@@ -59,6 +59,156 @@ public class AgentSensingTest {
 	}
 
 	@Test
+	public void testScalarValueOfOpposedVectors() throws Exception{
+		description = "";
+		Vector2 a_v, b_v;
+		a_v = new Vector2(0,1);
+		b_v = new Vector2(0,-1);
+		Agent a, b;
+		a = new Agent();
+		b = new Agent();
+		a.velocity = a_v;
+		a.position = new Vector2(0,0);
+		b.position = new Vector2(0,1);
+		b.velocity = b_v;
+		float value = mvt.calculateScalarValue(a,b);
+		assertThat(value,is(2.0f));
+	}
+	
+	@Test
+	public void testScalarValueOfParallelVectors() throws Exception{
+		description = "";
+		Vector2 a_v, b_v;
+		a_v = new Vector2(0,1);
+		b_v = new Vector2(0,1);
+		Agent a, b;
+		a = new Agent();
+		b = new Agent();
+		a.velocity = a_v;
+		a.position = new Vector2(0,0);
+		b.position = new Vector2(0,1);
+		b.velocity = b_v;
+		float value = mvt.calculateScalarValue(a,b);
+		assertThat(value,is(0.0f));
+	}
+	
+	@Test
+	public void testScalarValueOfParallelVectorsButLargerVel() throws Exception{
+		description = "";
+		Vector2 a_v, b_v;
+		a_v = new Vector2(0,1);
+		b_v = new Vector2(0,2);
+		Agent a, b;
+		a = new Agent();
+		b = new Agent();
+		a.velocity = a_v;
+		a.position = new Vector2(0,0);
+		b.position = new Vector2(0,1);
+		b.velocity = b_v;
+		float value = mvt.calculateScalarValue(a,b);
+		assertThat(value,is(-1.0f));
+	}
+	
+	
+
+	@Test
+	public void testScalarValueOfOpposedVectorsDelta() throws Exception{
+		description = "";
+		
+		Vector2 a_v, b_v;
+		
+		a_v = new Vector2(0,1);
+		b_v = new Vector2(0,-1);
+		Agent a, b;
+		a = new Agent();
+		b = new Agent();
+		a.velocity = a_v;
+		a.position = new Vector2(0,0);
+		b.position = new Vector2(0,1);
+		b.velocity = b_v;
+		float delta = 0.01f;
+		a.velocity.scale(delta);
+		b.velocity.scale(delta);
+		float value = mvt.calculateScalarValue(a,b, delta);
+		assertThat(value,is(2.0f));
+	}
+	
+	@Test
+	public void testScalarValueOfParallelVectorsDelta() throws Exception{
+		description = "";
+		Vector2 a_v, b_v;
+		a_v = new Vector2(0,1);
+		b_v = new Vector2(0,1);
+		Agent a, b;
+		a = new Agent();
+		b = new Agent();
+		a.velocity = a_v;
+		a.position = new Vector2(0,0);
+		b.position = new Vector2(0,1);
+		b.velocity = b_v;
+		float delta = 0.01f;
+		a.velocity.scale(delta);
+		b.velocity.scale(delta);
+		
+		float value = mvt.calculateScalarValue(a,b, delta);
+		assertThat(value,is(0.0f));
+	}
+	
+	@Test
+	public void testScalarValueOfParallelVectorsButLargerVelDelta() throws Exception{
+		description = "";
+		Vector2 a_v, b_v;
+		a_v = new Vector2(0,1);
+		b_v = new Vector2(0,2);
+		Agent a, b;
+		a = new Agent();
+		b = new Agent();
+		a.velocity = a_v;
+		a.position = new Vector2(0,0);
+		b.position = new Vector2(0,1);
+		b.velocity = b_v;
+		float delta = 0.01f;
+		a.velocity.scale(delta);
+		b.velocity.scale(delta);
+		
+		float value = mvt.calculateScalarValue(a,b, delta);
+		assertThat(value,is(-1.0f));
+	}
+	
+	@Test
+	public void testDangerZonesFirst() throws Exception{
+		description = "";
+		float scalar = -1;
+		float des = 1;
+		assertThat(mvt.danger(scalar, des),is(0));
+	}
+	
+	@Test
+	public void testDangerZonesSecond() throws Exception{
+		description = "";
+		float scalar = 0;
+		float des = 1;
+		assertThat(mvt.danger(scalar, des),is(0));
+	}
+	
+	@Test
+	public void testDangerZonesBelowHalf() throws Exception{
+		description = "";
+		float scalar = 0.5f;
+		float des = 1;
+		assertThat(mvt.danger(scalar, des),is(1));
+	}
+	
+	@Test
+	public void testDangerZonesOverHalf() throws Exception{
+		description = "";
+		float scalar = 1.5f;
+		float des = 1;
+		assertThat(mvt.danger(scalar, des),is(2));
+	}
+	
+	
+	@Test
 	public void testSensingNotZeroGivenAnAgentInFront() throws Exception {
 		description = "Risk of Agent Right in Front of us";
 		a.id = 0;
