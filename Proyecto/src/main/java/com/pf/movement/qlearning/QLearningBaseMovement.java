@@ -20,7 +20,7 @@ import com.pf.simulator.Simulator;
 public abstract class QLearningBaseMovement implements IAgentMovement {
 
 	public static int ITERATION_LENGTH = 200;
-	public static float ITERATION_QTY = 5000;
+	public static float ITERATION_QTY = 10000;
 	public static boolean QLearningEnabled = false;
 	public static Vector2 referenceVector = new Vector2(0, 1);
 	public static float maxViewDistance = 10;
@@ -29,7 +29,7 @@ public abstract class QLearningBaseMovement implements IAgentMovement {
 	public static float learningRate = 0.1f;
 	public static final float collisionReinforcement = -1;
 	public static final float regularReinforcement = 0;
-	public static final float rewardReinforcement = 10;
+	public static final float rewardReinforcement = 0.0f;
 	public static float discountFactor = 0.9f;
 	public static float decay = -99999f;
 	public static final float QCorrectionMod = 1.4f;
