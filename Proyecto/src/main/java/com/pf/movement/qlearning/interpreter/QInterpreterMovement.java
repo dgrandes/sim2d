@@ -73,7 +73,6 @@ public class QInterpreterMovement extends QLearningBaseMovement implements
 					new QAction(action)));
 
 			if (someUtility == null) {
-				System.out.println("utility for " + action + " is null");
 				someUtility = new Float(0);
 			}
 			
@@ -88,8 +87,6 @@ public class QInterpreterMovement extends QLearningBaseMovement implements
 			}
 
 		}
-		
-		System.out.println("chose " + actionToTake);
 		return actionToTake;
 	}
 
