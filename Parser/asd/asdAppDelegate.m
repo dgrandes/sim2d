@@ -17,14 +17,24 @@
 
 @synthesize viewController=_viewController;
 
++ (NSString *)pathInDocumentsDirectory:(NSString *)filename {
+    // Get list of document directories in sandbox
+    NSArray *documentDirectories = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    
+    // Get one and only one document directory from that list
+    NSString *documentDirectory = [documentDirectories objectAtIndex:0];
+    
+    // Append passed in file name to that directory, return it
+    return [documentDirectory stringByAppendingPathComponent:filename];
+    
+}
+
 - (void)printFormattedQMatrix {
     NSMutableDictionary *groupsDictionary = [NSMutableDictionary dictionary];
     
     NSString *pDatabasePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"interpreter.txt"];
     NSData *matrixData = [NSData dataWithContentsOfFile:pDatabasePath];
     NSString *matrixString = [[NSString alloc] initWithData:matrixData encoding:NSUTF8StringEncoding];
-    
-    //NSLog(@"%@", matrixString);
     
     NSRegularExpression *regex = [NSRegularExpression 
                                   regularExpressionWithPattern:
@@ -69,7 +79,7 @@
         
     }
     
-    NSLog(@"%@", outputString);
+    [[outputString dataUsingEncoding:NSUTF8StringEncoding] writeToFile:[asdAppDelegate pathInDocumentsDirectory:@"Matrix.txt"] atomically:NO];
 }
 
 - (void)printRunExtract {
@@ -112,9 +122,7 @@
     
     [outputString appendFormat:@"]);var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));chart.draw(data, {width: 1000, height: 640, title: 'Performance',hAxis: {title: 'Iteracion',titleTextStyle: {color: '#FF0000'}}});}</script></head><body><div id=\"chart_div\"></div></body></html>"];
     
-    NSLog(@"%@", outputString);
-    
-    NSLog(@"\n\n\n\n\n\n\n\n\n\n");
+    [[outputString dataUsingEncoding:NSUTF8StringEncoding] writeToFile:[asdAppDelegate pathInDocumentsDirectory:@"performanceGraph.html"] atomically:NO];
 }
 
 - (void)graphSpeed {
@@ -153,9 +161,7 @@
     
     [outputString appendFormat:@"]);var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));chart.draw(data, {width: 1000, height: 640, title: 'Velocidad',hAxis: {title: 'Iteracion',titleTextStyle: {color: '#FF0000'}},vAxis: {minValue: 0, maxValue: 0.5}});}</script></head><body><div id=\"chart_div\"></div></body></html>"];
     
-    NSLog(@"%@", outputString);
-    
-    NSLog(@"\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    [[outputString dataUsingEncoding:NSUTF8StringEncoding] writeToFile:[asdAppDelegate pathInDocumentsDirectory:@"speedGraph.html"] atomically:NO];
 }
 
 - (void)unparseQMatrix {
