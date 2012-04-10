@@ -459,6 +459,7 @@ public abstract class QLearningBaseMovement implements IAgentMovement {
 			danger = 1;
 		else 
 			danger = 2;
+			
 		return danger;
 		
 	}
@@ -536,10 +537,26 @@ public abstract class QLearningBaseMovement implements IAgentMovement {
 			}
 
 			if (riskPresent) {
-				Vector2 relativeSpeed = a.velocity.scale(-1);
 
 				Vector2 closest_point = obstacle.closestPointToAgent(a);
-				float riskValue = relativeSpeed.dot(a.position
+				if(closest_point != null)
+				{
+					float delta;
+					try {
+						delta = Simulator.getSimEnvironment().getEnvironment().deltaTime;
+
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					delta = 0.001f;
+					float scalar = calculateScalarValueWithObstacle(a, closest_point, delta);
+					risk = danger(scalar, a.getvDesired());
+				}
+				else
+					risk = 2;
+	/*			float riskValue;
+				if(closest_point != null)
+					riskValue = relativeSpeed.dot(a.position
 						.sub(closest_point));
 
 				if (riskValue <= -0.05) {
@@ -547,7 +564,9 @@ public abstract class QLearningBaseMovement implements IAgentMovement {
 					break;
 				} else if (riskValue < 0) {
 					risk = 1;
-				}
+				}*/
+				
+
 			}
 
 		}
@@ -555,6 +574,15 @@ public abstract class QLearningBaseMovement implements IAgentMovement {
 		return risk;
 
 	}
+	
+	public float calculateScalarValueWithObstacle(Agent a, Vector2 closest_point, float delta) {
+		Vector2 relativeSpeed = a.velocity.scale(-1);
+		Vector2 agentsSeparation = a.position.sub(closest_point);
+		float scalarProduct = relativeSpeed.dot(agentsSeparation);
+		
+		return scalarProduct;
+	}
+	
 
 	protected boolean pointInTriangle(Vector2 p, Vector2 a, Vector2 b, Vector2 c) {
 		return sameSide(p, a, b, c) && sameSide(p, b, a, c)
