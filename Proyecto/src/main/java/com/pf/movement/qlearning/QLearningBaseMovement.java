@@ -27,9 +27,9 @@ public abstract class QLearningBaseMovement implements IAgentMovement {
 	public static final float maxViewAngle = 180;
 	public static final int slices = 6;
 	public static float learningRate = 0.1f;
-	public static final float collisionReinforcement = -1;
+	public static final float collisionReinforcement = -2;
 	public static final float regularReinforcement = 0;
-	public static final float rewardReinforcement = 0.0f;
+	public static final float rewardReinforcement = 0.5f;
 	public static float discountFactor = 0.9f;
 	public static float decay = -99999f;
 	public static final float QCorrectionMod = 1.4f;
@@ -457,7 +457,7 @@ public abstract class QLearningBaseMovement implements IAgentMovement {
 			danger = 0;
 		else if(scalar <= mod/2.0f)
 			danger = 1;
-		else if(scalar >= mod)
+		else 
 			danger = 2;
 		return danger;
 		
