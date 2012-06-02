@@ -17,3 +17,11 @@ build/**/*
 
 iOS/cavevideos.xcodeproj/xcuserdata/matiaspan.xcuserdatad/xcdebugger/Breakpoints.xcbkptlist
 /webapp/nintendo/nbproject/private/
+
+#latex
+.goutputstream*
+*.aux
+*.log
+*.toc
+*.pdf
+

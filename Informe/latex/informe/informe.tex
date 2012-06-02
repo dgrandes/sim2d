@@ -1,0 +1,70 @@
+\documentclass[12pt]{article}
+
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[a4paper,left=3cm,right=3cm]{geometry}
+\usepackage{graphicx}
+
+\title{Proyecto Final: Simulador de Muchedumbres}
+\date{Junio, 2012}
+
+
+\begin{document}
+
+\author{
+	David Grandes\\
+       Instituto Tecnológico de Buenos Aires\\
+       dgrandes@alu.itba.edu.ar
+\and   
+	Matías Pan\\
+       Instituto Tecnológico de Buenos Aires\\
+       mpan@alu.itba.edu.ar
+}
+
+\maketitle
+
+\pagebreak
+
+\section{Resumen}
+
+Este proyecto tiene como objetivo la realización de un Simulador de Muchedumbres que permita la investigación de distintas políticas de movimiento. Se investigará el desempeño de técnicas de Aprendizaje Reforzado en la navegación de los agentes en distintos entornos.
+
+La modelización y simulación de muchedumbres es un problema de interés para varias disciplinas de ingeniería y logística. Este Proyecto Final de Grado tiene como objetivo la investigación de Aprendizaje por Refuerzo como política en la simulación de muchedumbres, con el deseo de encontrar una manera más realista de simular la navegación/elusión de obstáculos fijos o móviles (otros peatones).
+
+La investigación de la efectividad de políticas de Aprendizaje con Refuerzo se realizó a través de un simulador. El simulador fue implementado por el equipo y permitió la creación de entornos y distintos tipo de agentes para evaluar el aprendizaje. A su vez el simulador graba las simulaciones y las reproduce posteriormente para poder analizar los resultados.
+
+Los resultados a favor del aprendizaje con Refuerzo son variados. Se observan mejoras en ciertos entornos simples, pero en otros mas complejos, donde el agente debe interactuar con alta densidad de obstáculos se nota una tendencia a sobrecompensar y fallar repetidamente al intentar esquivarlos.
+
+\pagebreak
+
+\tableofcontents
+
+\section{Introducción}
+
+En la actualidad existen diversos métodos que simulan el comportamiento de agentes independientes moviéndose en un entorno. Uno de los mecanismos más sencillos es el uso de fuerzas, atractivas o repulsivas, que gobiernen el movimiento de los agentes. Este mecanismo tiene serias deficiencias en entornos complejos, o con caminos no directos entre el agente y su destino. Si el punto de deseo del agente se encuentra detrás de una pared la fuerza normal de la misma lo repele, dejando al agente atrapado en el lugar donde la fuerza resultante es 0.
+
+Lo que se propone es modificar este modelo por uno de aprendizaje reforzado. El aprendizaje por refuerzo es un área de estudio que contempla como un agente toma decisiones en un entorno no totalmente conocido. El agente maximiza la utilidad mediante refuerzos, dependiendo si tomó una buena o mala decisión. A su vez el agente tiene que encontrar un balance apropiado entre la exploración de mejores resultados y la explotación de conocimiento ya establecido.
+
+Se abordará el problema utilizando el método de aprendizaje por refuerzo llamado Q-Learning. Este método consiste en aprender asignando diferentes utilidades. El agente cambia de un estado a otro realizando una acción a $\in$ A. El algoritmo define la función que define la calidad, la cual el agente intentará maximizar a la hora de tomar decisiones, como:
+
+\begin{equation}
+\label{eq-qlearning1}
+Q = S \times A \rightarrow R
+\end{equation}
+
+Se entrenará utilizando aprendizaje por refuerzo en 3 entornos diferentes y luego se analizará el comportamiento en un entorno donde no podrá aprender sino que deberá explotar el conocimiento ya adquirido. Los agentes que no utilicen Q-Learning se regirán por el modelo de fuerza social.\cite{helbing:panic}
+
+\section{Modelización del Sistema}
+
+\section{Simulaciones}
+
+\section{Conclusión}
+
+\bibliographystyle{abbrv}
+\bibliography{01}
+
+
+\end{document}
