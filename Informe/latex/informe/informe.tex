@@ -42,6 +42,8 @@ Los resultados a favor del aprendizaje con Refuerzo son variados. Se observan me
 
 \tableofcontents
 
+\pagebreak
+
 \section{Introducción}
 
 En la actualidad existen diversos métodos que simulan el comportamiento de agentes independientes moviéndose en un entorno. Uno de los mecanismos más sencillos es el uso de fuerzas, atractivas o repulsivas, que gobiernen el movimiento de los agentes. Este mecanismo tiene serias deficiencias en entornos complejos, o con caminos no directos entre el agente y su destino. Si el punto de deseo del agente se encuentra detrás de una pared la fuerza normal de la misma lo repele, dejando al agente atrapado en el lugar donde la fuerza resultante es 0.
@@ -57,7 +59,78 @@ Q = S \times A \rightarrow R
 
 Se entrenará utilizando aprendizaje por refuerzo en 3 entornos diferentes y luego se analizará el comportamiento en un entorno donde no podrá aprender sino que deberá explotar el conocimiento ya adquirido. Los agentes que no utilicen Q-Learning se regirán por el modelo de fuerza social.\cite{helbing:panic}
 
-\section{Modelización del Sistema}
+\section{Antecedentes}
+\subsection{Modelo de Fuerza Social}
+
+El modelo de fuerza social \cite{helbing:panic} consiste en modelar el comportamiento como una combinación de fuerzas sociológicas y físicas:
+
+\begin{itemize}
+\item Fuerza de Deseo 
+\item Fuerza Social   
+\item Fuerza Granular o de Contacto
+\end{itemize}
+
+La fuerza de deseo es el comportamiento natural del agente, que es de ir a donde el desea. La fuerza social representa la tendencia que presentan las personas a permaner alejadas de las demás. La fuerza granular o de contacto son fuerzas que se manifiestan durante el contacto entre individuos u obstáculos.
+
+La ecuación general de movimiento del agente es la siguiente:
+\begin{equation}
+m_{i}\dfrac{d \mathbf{v}_{i}}{dt} = m_{i} \frac{
+	v^{0}_{i}(t) \mathbf{e}_{i}^{0}(t) - \mathbf{v}_{i}(t)
+}
+{
+\mathbf{\tau}_{i}
+}
++ \sum_{j(\ne i)}\mathbf{f}_{ij} 
++ \sum_{W}\mathbf{f}_{iW}
+\end{equation}
+
+donde $\mathbf{f}_{ij}$ son las fuerzas entre los agentes y $\mathbf{f}_{iW}$ son las fuerzas entre el agente y los obstáculos.
+
+El primer término de la ecuación es la \textit{fuerza de deseo} del agente, donde $\mathbf{e}_{i}^{0}$ es el vector de dirección al punto de interés. $v_{i}^{0}$ es la velocidad de deseo del agente que es modificada por la velocidad actual $\mathbf{v}_{i}(t)$. $\tau_{i}$ representa el tiempo de reacción o demora que tiene el agente en cambiar su velocidad.  
+
+Las fuerzas entre agentes y obstaculos tienen dos componentes, una es la \textit{fuerza social} y la \textit{fuerza granular}.
+Definimos las fuerzas entre los agentes ($\mathbf{f}_{i}$) de la siguiente manera:
+\begin{equation}
+\mathbf{f}_{ij} = \left \{ A_{i}\; \exp \left [ \dfrac{r_{ij} - d_{ij}}{B_{i}}\right ] 
++ 
+\kappa g(r_{ij} - d_{ij})
+\right \}\mathbf{n}_{ij}
++
+\kappa g(r_{ij} - d_{ij}) \Delta v_{ij}^{t}\mathbf{t}_{ij}
+\end{equation}
+
+
+La \textit{fuerza social} esta incluida en el primer término de la ecuación:
+\begin{equation}
+A_{i}\; \exp \left [ \dfrac{r_{ij} - d_{ij}}{B_{i}}\right ] 
+\end{equation}
+
+Es una fuerza de repulsión entre ellos que se hace más grande a medida que se acercan. $A_{i}$ y $B_{i}$ son constantes. $d_{ij}\; =\; ||r_{i}-r_{j}||$ y representa la distancia entre los centros de masa de los agentes. El versor $\mathbf{n}_{ij}$ apunta del agente j al agente i, lo cuál hace a esta una fuerza de repulsión. 
+
+La \textit{fuerza granular} o la \textit{fuerza de contacto} es una fuerza que se manifiesta solamente cuando el agente entra en contacto con otros elementos. Esta fuerza tiene dos componentes. La primera es una fuerza de resistencia de un cuerpo al ser comprimido por una fuerza externa. Esta dada por:
+\begin{equation}
+kg(r_{ij} - d_{ij})\mathbf{n}_{ij}
+\end{equation} 
+Esta fuerza va en la misma dirección normal que la \textit{fuerza social}. $\kappa$ es una constante. $g()$ es una función escalonada, que es $1$ si los agentes estan en contacto y $0$ si no. Es esta función la que habilita las fuerzas granulares en la ecuación de movimiento. 
+
+La segunda componente es una fuerza que impide el movimiento tangencial relativo. Esta dada por:
+\begin{equation}
+\kappa g(r_{ij} - d_{ij}) \Delta v_{ij}^{t}\mathbf{t}_{ij}
+\end{equation}
+
+Es igual a la anterior componente en magnitud, lo que cambia es el versor o la dirección. $\mathbf{t}_{ij}$ es la dirección tangencial y esta dada por $\mathbf{t}_{ij}\; =\; (-n_{ij},n_{ij})$. $\Delta v_{ij}^{t}$ es la diferencia de velocidad tangencial entre los agentes.
+
+La fuerza entre el agente y los obstaculos, en nuestro caso las paredes, esta dada por:
+\begin{equation}
+\mathbf{f}_{iW} = \left \{ A_{i}\; \exp \left [ \dfrac{r_{i} - d_{iW}}{B_{i}}\right ] 
++ 
+\kappa g(r_{i} - d_{iW})
+\right \}\mathbf{n}_{iW}
++
+\kappa g(r_{i} - d_{iW})(\mathbf{v}_{i} \cdot \mathbf{t}_{iW})\mathbf{t}_{iW}
+\end{equation}
+
+La ecuación es analoga a la de los agentes salvo por la dirección, que en este caso es normal a la superficie de la pared. Podemos ver que la fuerza social esta presente en esta ecuación también. Para la simulación se usaron estas ecuaciones integradas numéricamente con el \textit{Método de Euler}.
 
 \section{Simulaciones}
 
