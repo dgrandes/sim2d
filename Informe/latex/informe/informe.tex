@@ -130,9 +130,98 @@ La fuerza entre el agente y los obstaculos, en nuestro caso las paredes, esta da
 \kappa g(r_{i} - d_{iW})(\mathbf{v}_{i} \cdot \mathbf{t}_{iW})\mathbf{t}_{iW}
 \end{equation}
 
-La ecuación es analoga a la de los agentes salvo por la dirección, que en este caso es normal a la superficie de la pared. Podemos ver que la fuerza social esta presente en esta ecuación también. Para la simulación se usaron estas ecuaciones integradas numéricamente con el \textit{Método de Euler}.
+La ecuación es analoga a la de los agentes salvo por la dirección, que en este caso es normal a la superficie de la pared. Podemos ver que la fuerza social esta presente en esta ecuación también. Para la simulación se usaron estas ecuaciones integradas numéricamente con el \textit{Método de Euler}. Se integro con un $dt \; = \; 0.01s$
 
-\section{Simulaciones}
+\subsection{Aprendizaje por Refuerzo}
+El aprendizaje por refuerzo está fuertmente inspirado por la psicología conductista y el concepto de enseñar con medio de recompensas las decisiones que toma el individuo.
+
+El model consiste de los siguientes elementos:
+\begin{itemize}
+\item conjunto de estados $\textit{S}$
+\item Un conjunto de acciones $\textit{A}$
+\item Reglas de transición entre los estados
+\item Reglas que determinen la recompensa para cada transición posible
+\item Reglas que determinen qué es lo que un agente observa en un momento dado
+\end{itemize}
+
+El aprendizaje por refuerzo consta de dos etapas diferentes:
+
+\begin{itemize}
+\item Exploración: Durante esta etapa se toman decisiones con carácter aleatorio que permite expandir el espacio de búsqueda del agente.
+\item Explotación: Donde el agente prioriza la maximización de la recompensa. Durante esta etapa el agente tomará decisiones que le reporten la mejor utilidad.
+\end{itemize}
+
+\section{Q-Learning}
+
+El método elegido para el aprendizaje por refuerzo es Q-Learning. Q-Learning es una técnica de aprendizaje por refuerzos que se ajusta perfectamente a los requerimientos del simulador ya que no requiere que se modele el sistema completo para que este sea efectivo, en todo momento el agente solo está consciente de lo que le rodea y nada más.
+El proceso de decisión del agente esta dado por la siguiente función de actualización:
+
+\begin{equation}
+Q(s_{t},a_{t}) \leftarrow Q(s_{t}, a_{t}) + 
+	\alpha_{t}(s_{t},a_{t}) 
+	\times \left [ 
+		R(s_{t}) + 
+		\gamma \; max_{\alpha_{t+1}}Q(s_{t+1},a_{t+1}) -
+		Q(s_{t},a_{t})
+	\right ]
+\end{equation}
+
+El valor que se va a actualizar de la tabla $Q(s_{t},s_{t})$ es la suma del valor viejo con una correción basada en la nueva informacion. El término 
+$\alpha(s_{t},a_{t})$ es la taza de aprendizaje. Representa hasta que punto la nueva información reemplaza la anterior. Un valor de $0$ significa que el agente no ha aprendido nada, mientras que un valor de $1$ asegura que el agente considera solo la información más reciente.
+
+La recompensa es representada por $R_{t+1}$ en base a la acción tomada $a_{t}$ para el estado $s_{t}$. El factor de descuento $\gamma$, determina la importancia de recompensas futuras. Un factor $0$ significa un agente oportunista que solo considera la recompensa actual, mientras que un valor que se acerque a $1$ hace que el agente se oriente hacia recompensas de largo plazo. Un valor mayor a cero hace que los valores de $Q$ diverga. El factor de descuento se aplica a la mejor acción que se puede tomar. El valor máximo de utilidad de la próxima acción esta dado por:
+\begin{equation}
+max_{\alpha_{t+1}}Q(s_{t+1},a_{t+1})
+\end{equation}
+
+Nuestras simulaciones fueron realizadas con los siguientes parámetros:
+\begin{itemize}
+\item Factor de Aprendizaje ($\alpha$) = $0.1$
+\item Factor de Descuento ($\gamma$) = $0.9$
+\end{itemize}
+
+\section{Trabajo Realizado}
+
+\subsection{Simulador}
+
+El simulador desarrollado cuenta con las siguientes características:
+\begin{itemize}
+\item Configuración de agentes por medio de archivo.
+\item Configuración de entorno por medio de archivo.
+\item Configuración de frame skip desde GUI. El usuario, al realizar una simulación puede cambiar, si así lo desea, el frame skip del simulador, esto causa que la actualización visual del estado del simulador se realice cada una cantidad mayor de pasos pero provee la ventaja de liberar el procesador para realizar iteraciones de simulación mas rápidamente.
+\item Permite guardar simulaciones en formato binario.
+\item Permite reproducir simulaciones guardadas en formato binario.
+\item Durante la simulación el usuario puede hacer click derecho sobre un agente para ver un panel que se actualiza en tiempo real con la posición y la descomposición de las fuerzas que actúan sobre él.
+\item Durante la simulación el usuario puede hacer click para agregar un overlay sobre los agentes que indica la dirección y magnitud de las fuerzas que actúan sobre él.
+\item Posibilidad de pausar una simulación.
+\item Posibilidad de reiniciar una simulación.
+\item El simulador guarda el estado de los agentes que utilizan Q-Learning a archivos de log para su posterior análisis.
+\end{itemize}
+
+Se presta soporte para la declaración de agentes de variados diámetros y masas, permitiendo también al usuario que declare que tipo de movimiento deberá seguir el agente cuando este sea parte de una simulación y cual será el punto hacia el cual el agente deberá ir.
+Se pueden declarar también obstáculos de formas geométricas arbitrarias.
+
+Finalmente se permite la declaración de sumideros (puntos de llegada o metas) y de generadores (puntos de donde se generan agentes).
+
+El simulador fue desarrollado utilizando \textit{Java} y \textit{Swing}. Consta de una implementación de interfaz que utiliza extensivamente \textit{Worker Threads} para garantizar la responsividad de la misma al mismo tiempo que previene problemas de concurrencia.
+
+Además la simulación de agentes se realiza utilizando \textit{Thread Pools} que permiten paralelizar los cálculos dentro de una misma iteración y mejorar el tiempo que toman las mismas. Se puede asegurar que al paralelizar los cálculos no se producen problemas en cuanto al modelo de fuerzas sociales ni al de Q-Learning ya que se asegura que los threads están sincronizados y no se empieza nunca con el próximo paso de simulación hasta haber completado el actual.
+
+Teniendo en cuenta ciertas dificultades que se encontraron durante el desarrollo, principalmente en el área de GUI, 
+consideramos que \textit{Java}, si bien es un lenguaje muy flexible, puede no haber sido la mejor elección sobre la cual 
+construir el proyecto.
+Una mejor elección podría ser la utilización de un motor de video juegos para poder aprovechar la sincronización de 
+threads y las vastas librerías de vectores y física que estos motores poseen. Entre ellos los que más llaman la atención 
+son:
+
+\begin{itemize}
+\item Cocos2d: (http://cocos2d.org/) es una librería de Python opensource que existe desde febrero de 2008. Su principal 
+ventaja sobre la utilización de JAVA es como ya se mencionó, que este motor permite un manejo mas cómodo de la 
+graficación. Su otra ventaja es que al estar basada sobre OpenGL provee una interfaz mas fluida al usuario.
+\item Unity3D: (http://unity3d.com/) es un motor de vídeo juegos con soporte nativo multiplataforma. Si bien no es 
+opensource como Cocos2d, provee con un entorno de edición que facilita tareas típicas que acelera mucho el 
+desarrollo. En nuestra opinión esta es la mejor de las 2 opciones.
+\end{itemize}
 
 \section{Conclusión}
 
