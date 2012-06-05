@@ -86,9 +86,11 @@ m_{i}\dfrac{d \mathbf{v}_{i}}{dt} = m_{i} \frac{
 
 donde $\mathbf{f}_{ij}$ son las fuerzas entre los agentes y $\mathbf{f}_{iW}$ son las fuerzas entre el agente y los obstáculos.
 
-El primer término de la ecuación es la \textit{fuerza de deseo} del agente, donde $\mathbf{e}_{i}^{0}$ es el vector de dirección al punto de interés. $v_{i}^{0}$ es la velocidad de deseo del agente que es modificada por la velocidad actual $\mathbf{v}_{i}(t)$. $\tau_{i}$ representa el tiempo de reacción o demora que tiene el agente en cambiar su velocidad.  
+\subsubsection{Fuerza de Deseo}
+El primer término de la ecuación es la \textit{fuerza de deseo} del agente, donde $\mathbf{e}_{i}^{0}$ es el vector de dirección al punto de interés. $v_{i}^{0}$ es la velocidad de deseo del agente que es modificada por la velocidad actual $\mathbf{v}_{i}(t)$. $\tau_{i}$ representa el tiempo de reacción o demora que tiene el agente en cambiar su velocidad.
 
-Las fuerzas entre agentes y obstaculos tienen dos componentes, una es la \textit{fuerza social} y la \textit{fuerza granular}.
+\subsubsection{Fuerza Social y Granular}
+Las fuerzas entre agentes y obstaculos tienen dos componentes, la \textit{fuerza social} y la \textit{fuerza granular}.
 Definimos las fuerzas entre los agentes ($\mathbf{f}_{i}$) de la siguiente manera:
 \begin{equation}
 \mathbf{f}_{ij} = \left \{ A_{i}\; \exp \left [ \dfrac{r_{ij} - d_{ij}}{B_{i}}\right ] 
@@ -130,10 +132,21 @@ La fuerza entre el agente y los obstaculos, en nuestro caso las paredes, esta da
 \kappa g(r_{i} - d_{iW})(\mathbf{v}_{i} \cdot \mathbf{t}_{iW})\mathbf{t}_{iW}
 \end{equation}
 
-La ecuación es analoga a la de los agentes salvo por la dirección, que en este caso es normal a la superficie de la pared. Podemos ver que la fuerza social esta presente en esta ecuación también. Para la simulación se usaron estas ecuaciones integradas numéricamente con el \textit{Método de Euler}. Se integro con un $dt \; = \; 0.01s$
+La ecuación es analoga a la de los agentes salvo por la dirección, que en este caso es normal a la superficie de la pared. Podemos ver que la fuerza social esta presente en esta ecuación también. 
+
+\subsubsection{Desventajas}
+
+La principal desventaja del model de fuerza social, y el motivo por el cúal se busca una alternativa a este, es que los agentes tienden a atascarse cuando se enfrentan a un obstáculo que yace en la dirección al objetivo. Se pretende solucionar este problema permitiendo al agente ``esquivar'' obstáculos antes de llegar a la situación de contacto.
+
+\begin{figure}
+\centering
+\includegraphics[width = 6cm]{images/fuerzasocial.png}
+\caption[Fuerza Social]{\small{Situaciones problemáticas para el modelo de fuerza social}}
+\label{figProbFuerzaSocial}
+\end{figure}
 
 \subsection{Aprendizaje por Refuerzo}
-El aprendizaje por refuerzo está fuertmente inspirado por la psicología conductista y el concepto de enseñar con medio de recompensas las decisiones que toma el individuo.
+El aprendizaje por refuerzo está fuertemente inspirado por la psicología conductista y el concepto de enseñar con medio de recompensas las decisiones que toma el individuo.
 
 El model consiste de los siguientes elementos:
 \begin{itemize}
@@ -174,11 +187,6 @@ La recompensa es representada por $R_{t+1}$ en base a la acción tomada $a_{t}$ p
 max_{\alpha_{t+1}}Q(s_{t+1},a_{t+1})
 \end{equation}
 
-Nuestras simulaciones fueron realizadas con los siguientes parámetros:
-\begin{itemize}
-\item Factor de Aprendizaje ($\alpha$) = $0.1$
-\item Factor de Descuento ($\gamma$) = $0.9$
-\end{itemize}
 
 \section{Trabajo Realizado}
 
@@ -188,7 +196,7 @@ El simulador desarrollado cuenta con las siguientes características:
 \begin{itemize}
 \item Configuración de agentes por medio de archivo.
 \item Configuración de entorno por medio de archivo.
-\item Configuración de frame skip desde GUI. El usuario, al realizar una simulación puede cambiar, si así lo desea, el frame skip del simulador, esto causa que la actualización visual del estado del simulador se realice cada una cantidad mayor de pasos pero provee la ventaja de liberar el procesador para realizar iteraciones de simulación mas rápidamente.
+\item Configuración de frame skip desde GUI. El usuario puede cambiar el frame skip del simulador. Un frameskip alto permite que la actualización visual se realice en una mayor de pasos. Esto permite liberar el procesador para realizar iteraciones de simulación mas rápidamente.
 \item Permite guardar simulaciones en formato binario.
 \item Permite reproducir simulaciones guardadas en formato binario.
 \item Durante la simulación el usuario puede hacer click derecho sobre un agente para ver un panel que se actualiza en tiempo real con la posición y la descomposición de las fuerzas que actúan sobre él.
@@ -198,14 +206,14 @@ El simulador desarrollado cuenta con las siguientes características:
 \item El simulador guarda el estado de los agentes que utilizan Q-Learning a archivos de log para su posterior análisis.
 \end{itemize}
 
-Se presta soporte para la declaración de agentes de variados diámetros y masas, permitiendo también al usuario que declare que tipo de movimiento deberá seguir el agente cuando este sea parte de una simulación y cual será el punto hacia el cual el agente deberá ir.
+Se presta soporte para la declaración de agentes de variados diámetros y masas, permitiendo también al usuario que declare que tipo de movimiento deberá seguir el agente. También se define cual será el punto hacia el cual el agente deberá ir.
 Se pueden declarar también obstáculos de formas geométricas arbitrarias.
 
 Finalmente se permite la declaración de sumideros (puntos de llegada o metas) y de generadores (puntos de donde se generan agentes).
 
-El simulador fue desarrollado utilizando \textit{Java} y \textit{Swing}. Consta de una implementación de interfaz que utiliza extensivamente \textit{Worker Threads} para garantizar la responsividad de la misma al mismo tiempo que previene problemas de concurrencia.
+El simulador fue desarrollado utilizando \textit{Java} y \textit{Swing}. Consta de una implementación de interfaz que utiliza extensivamente \textit{Worker Threads} para garantizar la capacidad de respuesta del sistema al mismo tiempo que previene problemas de concurrencia.
 
-Además la simulación de agentes se realiza utilizando \textit{Thread Pools} que permiten paralelizar los cálculos dentro de una misma iteración y mejorar el tiempo que toman las mismas. Se puede asegurar que al paralelizar los cálculos no se producen problemas en cuanto al modelo de fuerzas sociales ni al de Q-Learning ya que se asegura que los threads están sincronizados y no se empieza nunca con el próximo paso de simulación hasta haber completado el actual.
+La simulación de agentes se realiza utilizando \textit{Thread Pools} que permiten paralelizar los cálculos dentro de una misma iteración y mejorar el tiempo que toman las mismas.
 
 Teniendo en cuenta ciertas dificultades que se encontraron durante el desarrollo, principalmente en el área de GUI, 
 consideramos que \textit{Java}, si bien es un lenguaje muy flexible, puede no haber sido la mejor elección sobre la cual 
@@ -221,6 +229,52 @@ graficación. Su otra ventaja es que al estar basada sobre OpenGL provee una inte
 \item Unity3D: (http://unity3d.com/) es un motor de vídeo juegos con soporte nativo multiplataforma. Si bien no es 
 opensource como Cocos2d, provee con un entorno de edición que facilita tareas típicas que acelera mucho el 
 desarrollo. En nuestra opinión esta es la mejor de las 2 opciones.
+\end{itemize}
+
+\subsection{Modos de Uso}
+
+El simulador cuenta con dos modos principales:
+
+\begin{itemize}
+\item Simulación: Donde el uusario configura el simulador con archivos de entorno y agentes y realiza las simulaciones.
+\item Reproducción o Replay: Donde el usuario configura el simulador con un archivo previamente generado que guarda el estado de los agentes en cada intervalo de tiempo.
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics[width = 8cm]{images/simuladorplay.png}
+\caption[Sim Play]{\small{Simulador en Modo Play}}
+\label{figSimPlay}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width = 8cm]{images/simuladorreplay.png}
+\caption[Sim Replay]{\small{Simulador en Modo Replay}}
+\label{figSimReplay}
+\end{figure}
+
+Cuando el simulador se encuentra en modo reproducción el usuario tiene la posibilidad de avanzar cuadro por cuadro, 
+reproducir normalmente o ir al principio o final. Así mismo el simulador provee un deslizador para que el usuario pueda situar 
+la simulación en cualquier punto.
+
+\subsection{Fuerza Social}
+El modelo de \textit{Fuerza Social} \cite{helbing:panic} se implementó sin modificaciones. El simulador soporta agentes de variados diámetros y masas.
+Los parámetros de los agentes se especifícan en los archivos
+de simulación.
+Los parámetros utilizados en los cálculos de la Fuerza Social son los siguientes:
+\begin{itemize}
+\item Diferencial de tiempo: $dt \; = \; 0.01s$.
+\item Velocidad de Deseo: $v_{i}^{0} \; = \; 1,4m/s$. 
+
+Pues esa es la velocidad típica a la que caminan las personas.
+
+\end{itemize}
+Es posible determinar los parámetros de Q-Learning en el menú del Simulador. 
+En nuestras simulaciones se usaron los siguientes parametros:
+\begin{itemize}
+\item Factor de Aprendizaje ($\alpha$) = $0.1$
+\item Factor de Descuento ($\gamma$) = $0.9$
 \end{itemize}
 
 \section{Conclusión}
