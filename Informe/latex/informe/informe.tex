@@ -277,6 +277,86 @@ En nuestras simulaciones se usaron los siguientes parametros:
 \item Factor de Descuento ($\gamma$) = $0.9$
 \end{itemize}
 
+\subsection{Implementación de Q-Learning}
+
+\subsubsection{Modelización de los estados $S$}
+
+Los estados han sido modelados como un vector de estado de sensores dentro del agente. Este vector representa el campo visual del agente. Se decidó aproximar el campo visual del ser humano a 180 grados hacia el frente.
+
+Los sensores se sitúan cubriendo todo el espectro visual, con mayor concentración en la zona frontal, (ver figura de distribución de sensores). Inicialmente se evaluó la posibilidad de utilizar 6 sensores distribuidos uniformemente a lo largo del arco visual del agente pero luego de realizar experimentos con esta configuración se optó por un modelo de 8 sensores con mayor concentración en la zona frontal.
+
+Se probaron ambas alternativas en diversos escenarios y observamos mejoras de hasta 40\% en llegadas exitosas a destino versus colisiones. El costo viene con el cáluclo del sensado, que toma un 25\% más.
+
+Los agentes tienen capacidad de observar hasta una distancia de 10m.
+
+La forma en la que el agente releva los datos se refleja en el estado con una escala de 3 valores: 
+\begin{itemize}
+\item 0 significa que no se observa nada en ese sensor.
+\item 1 y 2 significan que el agente detecta riesgo en ese sensor. el valor del sensor depende directamente de la velocidad relativa observada por el agente en sentido normal para un sensor dado.
+\end{itemize}
+
+En total tenemos 6561 estados posibles.
+
+La fórmula que calcula el riesgo entre el agente $i$ y el agente $k$ es la siguiente:
+
+\begin{equation}
+R_{ik} = ((\vec{v}_{i} - \vec{v}_{k}) \cdot (\vec{p}_{i} - \vec{p}_{k}))
+\end{equation}
+
+Donde $\vec{v}$ es la velocidad y $\vec{p}$ es la posición de los respectivos agentes. 
+
+El riesgo se interpreta de la siguiente manera:
+
+\begin{itemize}
+
+\item $0$ si $R_{ik} \le 0$
+\item $1$ si $0 < R_{ik} \le v_{i}^{0}/2$
+\item $2$ si $R_{ik} > v_{i}^{0}/2$
+\end{itemize}
+
+Donde $v_{i}^{0}$ es la velocidad de deseo del agente.
+
+En la figura \ref{figSensores} tenemos un esquema del rango de visión de los sensores en las distintas alineaciones. La configuración de 8 sensores aprovecha huecos en el arco frontal de visión que la configuración de 6 sensores es incapaz de reconocer.
+\begin{figure}
+\centering
+\includegraphics[width = 8cm]{images/sensores.png}
+\caption[Sensores]{\small{Configuración de 6 sensores contra 8 sensores.}}
+\label{figSensores}
+\end{figure}
+
+\subsection{Modelización de las Acciones $A$}
+
+Las acciones que el agente puede tomar son las siguientes:
+\begin{center}
+\begin{tabular}{ | c | p{10cm} |}
+\hline
+\textbf{Nombre} & \textbf{Descripción} \\ \hline \hline
+ACTION\_NONE & El agente no hace nada para cambiar su trayectoria. El agente elige esta acción cuando no detecta amenazas. \\ \hline
+ACTION\_BACK  & El agente activa un actuador que le imprime una fuerza de $0.5 \times v_{i}^{0}$ en dirección opuesta a su velocidad actual. \\ \hline
+ACTION\_LEFT & El agente activa una actuador que le imprime una fuerza de $v_{i}^{0}$ hacia su izquierda. \\ \hline
+ACTION\_RIGHT & El agente activa un actuador que le imprime una fuerza de $v_{i}^{0}$ hacia su derecha. \\ \hline
+\end{tabular}
+\end{center}
+
+Donde $v_{i}^{0}$ es la velocidad de deseo del agente.
+
+\subsection{Esquema de Refuerzos}
+Se decidió por un es esquema de refuerzos negativos. Cada vez que el agente choca con otro agente se refuerza con un valor de $-1$. La decisióon se basa en qe al seguir presente la fuerza de deseo mientras el agente aprende utilizando Q-Learning no es necesario recompensarlo por avanzar correctamente.
+
+\subsection{Exploración vs Explotación}
+
+Inicialmente el agente tiene una probabilidad de exporar del 100\%. Esta probabilidad decrece a lo largo de la simulación, forzando a que se explote más mientras mas avanzada este la simulación. Toda exploración termina antes del 66\% de la simulación. Desde ahí en adelante el agente solo explota las decisiones aprendidas, no explora nuevas. En la figura \ref{figexploracionvsexplotacion} se observa como decrece la probabilidad de exploración versus los pasos de simulación transcurridos.
+
+\begin{figure}
+\centering
+\includegraphics[width = 10cm]{images/exploracionvsexplotacion.png}
+\caption[figexploracionvsexplotacion]{\small{Probabilidad de exploración vs iteraciones de Q-Learning}}
+\label{figexploracionvsexplotacion}
+\end{figure}
+
+\section{Experimentos y Resultados}
+
+
 \section{Conclusión}
 
 \bibliographystyle{abbrv}
