@@ -341,7 +341,7 @@ ACTION\_RIGHT & El agente activa un actuador que le imprime una fuerza de $v_{i}
 Donde $v_{i}^{0}$ es la velocidad de deseo del agente.
 
 \subsection{Esquema de Refuerzos}
-Se decidió por un es esquema de refuerzos negativos. Cada vez que el agente choca con otro agente se refuerza con un valor de $-1$. La decisióon se basa en qe al seguir presente la fuerza de deseo mientras el agente aprende utilizando Q-Learning no es necesario recompensarlo por avanzar correctamente.
+Se decidió por un esquema de refuerzos negativos. Cada vez que el agente choca con otro agente se refuerza con un valor de $-1$. La decisión se basa en que al seguir presente la fuerza de deseo mientras el agente aprende utilizando Q-Learning no es necesario recompensarlo por avanzar correctamente.
 
 \subsection{Exploración vs Explotación}
 
@@ -356,6 +356,34 @@ Inicialmente el agente tiene una probabilidad de exporar del 100\%. Esta probabi
 
 \section{Experimentos y Resultados}
 
+A continuación se presentan los resultados de los 4 experimentos propuestos. Los supuestos para las simulaciones son los siguientes:
+
+\begin{itemize}
+\item Se entrenó el agente drante $1000$ pasos de decisión de Q-Learning.
+\item Se evalúa Q-Learning cada el equivalente a $200ms$ en tiempo de simulación.
+\item El \textit{decay rate} (el factor que decide cuando un agente debe explorar y cuando explotar) vale $0.15$. Esto quiere decir que en $2/3$ de la simulación el agente deja de explorar por completo.
+\item Solo se otorgan refuerzos negativos cuando el agente colisiona con otro agente o con un obstáculo.
+\item No se otorgan refuerzos positivos.
+\item El desempeño de una simulación se mide por el ratio \textit{llegadas}/\textit{colisiones}.
+\item Cuando debe decidir, el agente elige la acción con utildad menos negativa.
+\end{itemize}
+
+\subsection{Formatos de Salida}
+
+Las simulaciones arrojan resultados en formato de log, los cuales se analizan para construir gráficos para dos métricas distintas:
+
+\begin{itemize}
+\item Desempeño: Representa la cantidad de llegadas con éxito contra la cantidad de colisiones que sufrió un agente.
+\item Velocidad: Representa la velocidad a la que se trasladó el agente durante el intervalo de tiempo entre decisiones de Q-Learning.
+\end{itemize}
+
+Se loguea la matriz-Q que resultó del experimento para poder utilizarla en futuras simulaciones. El formato de la matriz crudo es algo difícil de analizar por lo que los resultados que aquí se presentan se acompaña las matrices en un formato mas ordenado.
+
+El estado de la matriz-Q debe interpretarse de izquierda a derecha, es decir que el primer valor del vector corresponde al sensor de la derecha y el último al último sensor de la izquierda.
+
+Los archivos de log tienen el siguiente formato:
+
+\subsection{Experimento 1}
 
 \section{Conclusión}
 
