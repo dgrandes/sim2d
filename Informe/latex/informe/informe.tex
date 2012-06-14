@@ -140,7 +140,7 @@ La principal desventaja del model de fuerza social, y el motivo por el cúal se b
 
 \begin{figure}
 \centering
-\includegraphics[width = 6cm]{images/fuerzasocial.png}
+\includegraphics{images/fuerzasocial.png}
 \caption[Fuerza Social]{\small{Situaciones problemáticas para el modelo de fuerza social}}
 \label{figProbFuerzaSocial}
 \end{figure}
@@ -242,14 +242,14 @@ El simulador cuenta con dos modos principales:
 
 \begin{figure}
 \centering
-\includegraphics[width = 8cm]{images/simuladorplay.png}
+\includegraphics{images/simuladorplay.png}
 \caption[Sim Play]{\small{Simulador en Modo Play}}
 \label{figSimPlay}
 \end{figure}
 
 \begin{figure}
 \centering
-\includegraphics[width = 8cm]{images/simuladorreplay.png}
+\includegraphics{images/simuladorreplay.png}
 \caption[Sim Replay]{\small{Simulador en Modo Replay}}
 \label{figSimReplay}
 \end{figure}
@@ -319,7 +319,7 @@ Donde $v_{i}^{0}$ es la velocidad de deseo del agente.
 En la figura \ref{figSensores} tenemos un esquema del rango de visión de los sensores en las distintas alineaciones. La configuración de 8 sensores aprovecha huecos en el arco frontal de visión que la configuración de 6 sensores es incapaz de reconocer.
 \begin{figure}
 \centering
-\includegraphics[width = 8cm]{images/sensores.png}
+\includegraphics{images/sensores.png}
 \caption[Sensores]{\small{Configuración de 6 sensores contra 8 sensores.}}
 \label{figSensores}
 \end{figure}
@@ -349,7 +349,7 @@ Inicialmente el agente tiene una probabilidad de exporar del 100\%. Esta probabi
 
 \begin{figure}
 \centering
-\includegraphics[width = 10cm]{images/exploracionvsexplotacion.png}
+\includegraphics{images/exploracionvsexplotacion.png}
 \caption[figexploracionvsexplotacion]{\small{Probabilidad de exploración vs iteraciones de Q-Learning}}
 \label{figexploracionvsexplotacion}
 \end{figure}
@@ -383,8 +383,64 @@ El estado de la matriz-Q debe interpretarse de izquierda a derecha, es decir que
 
 Los archivos de log tienen el siguiente formato:
 
+\begin{figure}
+\centering
+\includegraphics{images/formatosim.png}
+\caption[Sensores]{\small{Formato de archivo \textit{log} analizado.}}
+\label{figSensores}
+\end{figure}
+
 \subsection{Experimento 1}
 
+Dos agentes alineados que se enfrentan y deben eludirse con la política aprendida.
+
+Para aprender se usarán 3 esquemas independientes, la política hallada en cada uno debe ser usada para llevar a cabo el experimento final 1 y comparar cuál esquema de aprendizaje funciona mejor.
+
+\begin{itemize}
+
+\item Experimento 1.1 - Un sistema de un agente con un obstáculo (un agente quieto) en la línea del target. La posición inicial del agente debe ser  aleatoria alrededor de la línea que pasa por el obstáculo, de modo que lo eluda a  veces por derecha y a veces por izquierda.
+
+\item Experimento 1.2 - Ídem pero la velocidad del agente es duplicada.
+
+\item Experimento 1.3 - El obstáculo ahora es móvil. Es un agente que se mueve con el modelo de fuerza social reducida (solamente tiene fuerza de deseo y de contacto). El target del obstáculo queda directamente detrás del agente que aprende con \textit{Q-Learning}.
+
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics{images/ej1.png}
+\caption[Exp 1]{\small{Experimento 1 - Dos agentes encontrados.}}
+\label{figExp1}
+\end{figure}
+
+El experimento 1 es una prueba simple de la capacidad del simulador. En los 2 primeros escenarios propuestos el agente que aprende se comporta como se esperaba y tiene una performance positiva. Las figuras \ref{figExpRes1}, \ref{figExpRes2}, \ref{figExpRes3} son los gráficos de desempeño de los experimentos. La línea azul representa las llegadas con éxito, y la roja las colisiones.
+
+\begin{figure}
+\centering
+\includegraphics{images/ej1_1res.png}
+\caption[Exp 1 Res]{\small{Experimento 1.1 - Performance}}
+\label{figExpRes1}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{images/ej1_2res.png}
+\caption[Exp 2 Res]{\small{Experimento 1.2 - Performance}}
+\label{figExpRes2}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{images/ej1_3res.png}
+\caption[Exp 3 Res]{\small{Experimento 1.3 - Performance}}
+\label{figExpRes3}
+\end{figure}
+
+En el escenario 2 (figura \ref{figExpRes2}) se nota claramente el punto de inflexión entre exploración y explotación.
+
+Observando la matriz Q se puede ver que los valores de utilidad son los esperados en casi todos los casos.
+
+Cabe destacar que viendo los gráficos de utilidad se nota claramente que alrededor del paso 5000 en el escenario 1 la performance experimenta una mejoría notable causada por la menor posibilidad movimientos random y el aprovechamiento de la estrategia aprendida (figura \ref{figExpRes1}).
 \section{Conclusión}
 
 \bibliographystyle{abbrv}
