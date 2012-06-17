@@ -7,6 +7,7 @@
 \usepackage{amssymb}
 \usepackage[a4paper,left=3cm,right=3cm]{geometry}
 \usepackage{graphicx}
+\usepackage{longtable}
 
 \title{Proyecto Final: Simulador de Muchedumbres}
 \date{Junio, 2012}
@@ -236,7 +237,7 @@ desarrollo. En nuestra opinión esta es la mejor de las 2 opciones.
 El simulador cuenta con dos modos principales:
 
 \begin{itemize}
-\item Simulación: Donde el uusario configura el simulador con archivos de entorno y agentes y realiza las simulaciones.
+\item Simulación: Donde el usuario configura el simulador con archivos de entorno y agentes y realiza las simulaciones.
 \item Reproducción o Replay: Donde el usuario configura el simulador con un archivo previamente generado que guarda el estado de los agentes en cada intervalo de tiempo.
 \end{itemize}
 
@@ -265,7 +266,7 @@ de simulación.
 Los parámetros utilizados en los cálculos de la Fuerza Social son los siguientes:
 \begin{itemize}
 \item Diferencial de tiempo: $dt \; = \; 0.01s$.
-\item Velocidad de Deseo: $v_{i}^{0} \; = \; 1,4m/s$. 
+\item Velocidad de Deseo: $v_{i}^{0} \; = \; 1,2m/s$. 
 
 Pues esa es la velocidad típica a la que caminan las personas.
 
@@ -394,7 +395,7 @@ Los archivos de log tienen el siguiente formato:
 
 Dos agentes alineados que se enfrentan y deben eludirse con la política aprendida.
 
-Para aprender se usarán 3 esquemas independientes, la política hallada en cada uno debe ser usada para llevar a cabo el experimento final 1 y comparar cuál esquema de aprendizaje funciona mejor.
+Para aprender se usarán tres esquemas independientes, la política hallada en cada uno debe ser usada para llevar a cabo el experimento final 1 y comparar cuál esquema de aprendizaje funciona mejor.
 
 \begin{itemize}
 
@@ -408,46 +409,50 @@ Para aprender se usarán 3 esquemas independientes, la política hallada en cada u
 
 \begin{figure}
 \centering
-\includegraphics{images/ej1.png}
+\includegraphics{images/esquemas/ej1.png}
 \caption[Exp 1]{\small{Experimento 1 - Dos agentes encontrados.}}
 \label{figExp1}
 \end{figure}
 
-El Experimento 1.1 es una prueba simple de la capacidad del simulador. En los 2 primeros experimentos propuestos el agente que aprende se comporta como se esperaba y tiene una performance positiva. Las figuras \ref{figExpRes1}, \ref{figExpRes2}, \ref{figExpRes3} son los gráficos de desempeño de los experimentos. La línea azul representa las llegadas con éxito, y la roja las colisiones.
+\subsubsection{Resultados}
+
+El Experimento 1.1 es una prueba simple de la capacidad del simulador. En los dos primeros experimentos propuestos el agente que aprende se comporta como se esperaba y tiene una performance positiva. Las figuras \ref{figExpRes11}, \ref{figExpRes12}, \ref{figExpRes13} son los gráficos de desempeño de los experimentos. La línea azul representa las llegadas con éxito, y la roja las colisiones.
 
 \begin{figure}
 \centering
-\includegraphics{images/ej1_1res.png}
-\caption[Exp 1 Res]{\small{Experimento 1.1 - Performance}}
-\label{figExpRes1}
+\includegraphics{images/resultados/ej1_1.png}
+\caption[Exp 1.1 Res]{\small{Experimento 1.1 - Performance}}
+\label{figExpRes11}
 \end{figure}
 
 \begin{figure}
 \centering
-\includegraphics{images/ej1_2res.png}
-\caption[Exp 2 Res]{\small{Experimento 1.2 - Performance}}
-\label{figExpRes2}
+\includegraphics{images/resultados/ej1_2.png}
+\caption[Exp 1.2 Res]{\small{Experimento 1.2 - Performance}}
+\label{figExpRes12}
 \end{figure}
 
 \begin{figure}
 \centering
-\includegraphics{images/ej1_3res.png}
-\caption[Exp 3 Res]{\small{Experimento 1.3 - Performance}}
-\label{figExpRes3}
+\includegraphics{images/resultados/ej1_3.png}
+\caption[Exp 1.3 Res]{\small{Experimento 1.3 - Performance}}
+\label{figExpRes13}
 \end{figure}
 
 El análisis de los gráficos de desempeño revela importantes consecuencias del comportamiento del agente que aprende.
 \begin{itemize}
 
-\item En el Experimento 1.1 la performance experimenta una mejoría notable a partir de la mitad de la simulación. Esto es causado por la finalización de la etapa de exploración, deviniendo en una menor posibilidad de movimientos aleatorios y el aprovechamiento de la estrategia aprendida (figura \ref{figExpRes1}).
+\item En el Experimento 1.1 la performance experimenta una mejoría notable a partir de la mitad de la simulación. Esto es causado por la finalización de la etapa de exploración, deviniendo en una menor posibilidad de movimientos aleatorios y el aprovechamiento de la estrategia aprendida (figura \ref{figExpRes11}).
 
-\item En el Experimento 1.2 (figura \ref{figExpRes2}) se nota claramente el punto de inflexión entre exploración y explotación. La diferencia con el Experimento 1.1 es la velocidad del agente, que es el doble. Esto efectivamente duplica la dificultad del agente para en llegar con éxito a destino.
+\item En el Experimento 1.2 (figura \ref{figExpRes12}) se nota claramente el punto de inflexión entre exploración y explotación. La diferencia con el Experimento 1.1 es la velocidad del agente, que es el doble. Esto efectivamente duplica la dificultad del agente para en llegar con éxito a destino.
 
 \end{itemize}
 
-En las \textit{matrices de Q} se puede ver que los valores de utilidad son los esperados en casi todos los casos. Recordar
+En las \textit{matrices-Q}, (cuadros \ref{qmatrix11}, \ref{qmatrix12}, \ref{qmatrix13}) se puede ver que los valores de utilidad son los esperados en casi todos los casos. Recordar
 que el primer sensor es el que esta más a la derecha del agente, es decir, el que tiene un ángulo 0 con el campo de visión. Las siguientes posiciones del vector representan los vectores a medida que el angulo incrementa entre el sensor y el campo de visión. Otro elemento a tener en cuenta es que los sensores no se distribuyen equivalentemente, si no mas bien
 con una mayor concentración en los 4 sensores centrales.
+
+En el Experimento 1.3 (figura \ref{figExpRes13}) el desempeño es peor debido a que es más dificil aprender con un obstáculo móvil, que intercepta al agente en distintos lugares.
 
 \begin{table}
 \begin{center}
@@ -465,7 +470,7 @@ Sensado                     &  LEFT & RIGHT & NONE  & BACK \\ \hline
 
 \end{tabular}
 \caption{\small{Matriz de Q - Experimento 1.1}}
-\label{QMatrixExp1.1}
+\label{qmatrix11}
 \end{center}
 \end{table}
 
@@ -490,7 +495,7 @@ Sensado                     &  LEFT & RIGHT & NONE  & BACK \\ \hline
 
 \end{tabular}
 \caption{\small{Matriz de Q - Experimento 1.2}}
-\label{QMatrixExp1.2}
+\label{qmatrix12}
 \end{center}
 \end{table}
 
@@ -512,9 +517,141 @@ Sensado                     &  LEFT & RIGHT & NONE  & BACK \\ \hline
 
 \end{tabular}
 \caption{\small{Matriz de Q - Experimento 1.3}}
-\label{QMatrixExp1.3}
+\label{qmatrix13}
 \end{center}
 \end{table}
+
+
+\subsection{Experimento 2}
+
+Este experimento consiste en un pasillo largo y angosto, con un flujo de agentes moviendose en una dirección. El pasillo tiene 3m
+de ancho y 15 m de largo. Hay 30 peatones en un extremo, donde uno usa \textit{Q-Learning}, que tienen que llegar al otro lado.
+Se experimentó con distintas densidades por metro cudrado de agentes. Los agentes se mueven con la velocidad de deseo $v_{i}^{0}$.
+Los destinos de los agentes se fueron variando en los experimentos, se estudió el caso que los agentes se mueven en lineas rectas
+o hacia puntos aleatorios dentro del area de llegada. Los otros agentes que no se están entrenando usan el modelo social como 
+política de navegación. Un esquema del experimento se encuentra en la figura \ref{figExp2}.
+
+En resumen se estudiarán dos variables en este esquema: la densidad y las trayectorias. Esto nos da 4 Experimentos para ejecutar:
+
+\begin{itemize}
+\item Experimento 2.1 - Densidad Baja con Destinos Alineados
+\item Experimento 2.2 - Densidad Baja con Destinos Cruzados
+\item Experimento 2.3 - Densidad Alta con Destinos Alineados
+\item Experimento 2.4 - Densidad Alta con Destinos Cruzados
+
+\end{itemize}
+
+\subsubsection{Resultados}
+Los resultados del Experimento 2 revelan que la forma de presentar el estado escogida resulta inadecuada cuando aumenta considerablemente la densidad de peatones. Al tener dicha densidad, un agente que opte por detenerse chocará en el agente detrás.
+Debido a nuestro esquema de sensado, el agente no puede aprender de dicha situación porque sencillamente no lo percibe. Aún en los experimentos de baja densidad el resultado muestra que por más que llega un número de veces considerable, parecido al Experimento 1, la tasa de fracasos vs éxitos no cambia. El agente sigue colisionando en la misma proporción aún después de terminar la etapa de aprendizaje.
+
+Las \textit{matrices-Q} del Experimento 2 se excluyeron del documento debido a su extensión, de cientos de estados, y difíciles de interpretar a simple vista. Sin embargo se observó que en muchos casos todas las acciones asociadas a un estado tienen utilidades muy similares o los valores de utilidad más altos no están asociados a la acción que uno esperaría. Esto sucede por varias razones:
+
+\begin{itemize}
+	\item El agente se encuentra atrapado entre otros agentes y no existe una acción que lo haga salir de esa posición, tome la acción que tome choca con otro agente en los costados y por eso se lo recompensa de manera negativa.
+	\item El agente se encuentra atrapado entre otros agentes, si decide frenar sucede muy seguido que un agente más retrasado lo choca y por eso se lo recompensa de manera negativa también. Por más que el agente continúe moviendose a la velocidad promedio del grupo, existen colisiones por pequeños destellos de velocidad dentro del grupo. Debido al modelo de fuerza social, cuando dos agentes estan muy cerca se producen fuerzas que \"empujan\" con gran aceleración a alguno de estos agentes. 
+	\item Cuando el agente aplica una fuerza correctiva, no puede moderar la magnitud de la misma, lo que causa que al tratar de esquivar un obstáculo termine golpeando a otro.
+	\item Los otros agentes también esquivan al agente debido al modelo de fuerza social. Este reflejo salva malas decisiones que tomó el agente y que no se castigan.
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics{images/esquemas/ej2.png}
+\caption[Exp 2]{\small{Experimento 2 - Un corredor largo con 30 agentes}}
+\label{figExp2}
+\end{figure}
+
+
+\begin{figure}
+\centering
+\includegraphics{images/resultados/ej2_1.png}
+\caption[Exp 2.1 Res]{\small{Experimento 2.1 - Performance}}
+\label{figExpRes21}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{images/resultados/ej2_2.png}
+\caption[Exp 2.2 Res]{\small{Experimento 2.2 - Performance}}
+\label{figExpRes22}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{images/resultados/ej2_3.png}
+\caption[Exp 2.3 Res]{\small{Experimento 2.3 - Performance}}
+\label{figExpRes23}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{images/resultados/ej2_4.png}
+\caption[Exp 2.4 Res]{\small{Experimento 2.4 - Performance}}
+\label{figExpRes24}
+\end{figure}
+
+
+\subsection{Experimento 3}
+
+
+\begin{figure}
+\centering
+\includegraphics{images/esquemas/ej3.png}
+\caption[Exp 3]{\small{Experimento 3 - Un agente enfrentado a un bosque de agentes}}
+\label{figExp3}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{images/resultados/ej3_1.png}
+\caption[Exp 3.1 Res]{\small{Experimento 3.1 - Performance}}
+\label{figExpRes31}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{images/resultados/ej3_2.png}
+\caption[Exp 3.2 Res]{\small{Experimento 3.2 - Performance}}
+\label{figExpRes32}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{images/resultados/ej3_3.png}
+\caption[Exp 3.3 Res]{\small{Experimento 3.3 - Performance}}
+\label{figExpRes33}
+\end{figure}
+
+\subsection{Experimento 4}
+
+
+\begin{figure}
+\centering
+\includegraphics{images/esquemas/ej4.png}
+\caption[Exp 3]{\small{Experimento 4 - Cruce de calles transitadas}}
+\label{figExp4}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{images/resultados/ej4_1.png}
+\caption[Exp 4.1 Res]{\small{Experimento 4.1 - Performance}}
+\label{figExpRes41}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{images/resultados/ej4_2.png}
+\caption[Exp 4.2 Res]{\small{Experimento 4.2 - Performance}}
+\label{figExpRes42}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{images/resultados/ej4_3.png}
+\caption[Exp 3.3 Res]{\small{Experimento 4.3 - Performance}}
+\label{figExpRes43}
+\end{figure}
 
 \section{Conclusión}
 
