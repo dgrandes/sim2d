@@ -199,7 +199,8 @@ El simulador desarrollado cuenta con las siguientes características:
 \item Configuración de entorno por medio de archivo.
 \item Configuración de frame skip desde GUI. El usuario puede cambiar el frame skip del simulador. Un frameskip alto permite que la actualización visual se realice en una mayor de pasos. Esto permite liberar el procesador para realizar iteraciones de simulación mas rápidamente.
 \item Permite guardar simulaciones en formato binario.
-\item Permite reproducir simulaciones guardadas en formato binario.
+\item Permite guardar simulaciones de manera comprimida.
+\item Permite reproducir simulaciones guardadas en formato binario y/o comprimidas.
 \item Durante la simulación el usuario puede hacer click derecho sobre un agente para ver un panel que se actualiza en tiempo real con la posición y la descomposición de las fuerzas que actúan sobre él.
 \item Durante la simulación el usuario puede hacer click para agregar un overlay sobre los agentes que indica la dirección y magnitud de las fuerzas que actúan sobre él.
 \item Posibilidad de pausar una simulación.
@@ -317,7 +318,7 @@ El riesgo se interpreta de la siguiente manera:
 
 Donde $v_{i}^{0}$ es la velocidad de deseo del agente.
 
-En la figura \ref{figSensores} tenemos un esquema del rango de visión de los sensores en las distintas alineaciones. La configuración de 8 sensores aprovecha huecos en el arco frontal de visión que la configuración de 6 sensores es incapaz de reconocer.
+En la \textit{figura \ref{figSensores}} tenemos un esquema del rango de visión de los sensores en las distintas alineaciones. La configuración de 8 sensores aprovecha huecos en el arco frontal de visión que la configuración de 6 sensores es incapaz de reconocer.
 \begin{figure}
 \centering
 \includegraphics{images/sensores.png}
@@ -346,7 +347,7 @@ Se decidió por un esquema de refuerzos negativos. Cada vez que el agente choca c
 
 \subsection{Exploración vs Explotación}
 
-Inicialmente el agente tiene una probabilidad de exporar del 100\%. Esta probabilidad decrece a lo largo de la simulación, forzando a que se explote más mientras mas avanzada este la simulación. Toda exploración termina antes del 66\% de la simulación. Desde ahí en adelante el agente solo explota las decisiones aprendidas, no explora nuevas. En la figura \ref{figexploracionvsexplotacion} se observa como decrece la probabilidad de exploración versus los pasos de simulación transcurridos.
+Inicialmente el agente tiene una probabilidad de exporar del 100\%. Esta probabilidad decrece a lo largo de la simulación, forzando a que se explote más mientras mas avanzada este la simulación. Toda exploración termina antes del 66\% de la simulación. Desde ahí en adelante el agente solo explota las decisiones aprendidas, no explora nuevas. En la \textit{figura \ref{figexploracionvsexplotacion}} se observa como decrece la probabilidad de exploración versus los pasos de simulación transcurridos.
 
 \begin{figure}
 \centering
@@ -393,19 +394,18 @@ Los archivos de log tienen el siguiente formato:
 
 \subsection{Experimento 1}
 
-Dos agentes alineados que se enfrentan y deben eludirse con la política aprendida.
-
-Para aprender se usarán tres esquemas independientes, la política hallada en cada uno debe ser usada para llevar a cabo el experimento final 1 y comparar cuál esquema de aprendizaje funciona mejor.
+El Experimento 1 consiste en dos agentes enfrentados. La posición inicial del agente entrenado será  aleatoria alrededor de la línea que pasa por el obstáculo, de modo que lo eluda a  veces por derecha y a veces por izquierda. Se estudiarán tres configuraciones diferentes:
 
 \begin{itemize}
 
-\item Experimento 1.1 - Un sistema de un agente con un obstáculo (un agente quieto) en la línea del target. La posición inicial del agente debe ser  aleatoria alrededor de la línea que pasa por el obstáculo, de modo que lo eluda a  veces por derecha y a veces por izquierda.
+\item Experimento 1.1 - Un sistema de un agente con un obstáculo (un agente quieto) en la línea del target. 
 
 \item Experimento 1.2 - Ídem pero la velocidad del agente es duplicada.
 
 \item Experimento 1.3 - El obstáculo ahora es móvil. Es un agente que se mueve con el modelo de fuerza social reducida (solamente tiene fuerza de deseo y de contacto). El target del obstáculo queda directamente detrás del agente que aprende con \textit{Q-Learning}.
-
 \end{itemize}
+
+En la \textit{figura \ref{figExp1}} se detalla un esquema del experimento. Una imagen del simulador corriendo esta simulación se detalla en la \textit{figura \ref{figExp1Screen}}.
 
 \begin{figure}
 \centering
@@ -414,9 +414,16 @@ Para aprender se usarán tres esquemas independientes, la política hallada en cad
 \label{figExp1}
 \end{figure}
 
+\begin{figure}
+\centering
+\includegraphics[width=14cm]{images/esquemas/ej1screen.png}
+\caption[Exp 1 Screenshot]{\small{Experimento 1 - Imagen del Simulador. El punto rojo es el agente entrenando. El área de creación de agentes es \textit{spawn1}. El agente inmóvil es el punto de color ocre y el area de destino es \textit{exit1}.}}
+\label{figExp1Screen}
+\end{figure}
+
 \subsubsection{Resultados}
 
-El Experimento 1.1 es una prueba simple de la capacidad del simulador. En los dos primeros experimentos propuestos el agente que aprende se comporta como se esperaba y tiene una performance positiva. Las figuras \ref{figExpRes11}, \ref{figExpRes12}, \ref{figExpRes13} son los gráficos de desempeño de los experimentos. La línea azul representa las llegadas con éxito, y la roja las colisiones.
+El Experimento 1.1 es una prueba simple de la capacidad del simulador. En los dos primeros experimentos propuestos el agente que aprende se comporta como se esperaba y tiene una performance positiva. Las \textit{figuras \ref{figExpRes11}, \ref{figExpRes12}, \ref{figExpRes13}} son los gráficos de desempeño de los experimentos. La línea azul representa las llegadas con éxito, y la roja las colisiones.
 
 \begin{figure}
 \centering
@@ -442,17 +449,16 @@ El Experimento 1.1 es una prueba simple de la capacidad del simulador. En los do
 El análisis de los gráficos de desempeño revela importantes consecuencias del comportamiento del agente que aprende.
 \begin{itemize}
 
-\item En el Experimento 1.1 la performance experimenta una mejoría notable a partir de la mitad de la simulación. Esto es causado por la finalización de la etapa de exploración, deviniendo en una menor posibilidad de movimientos aleatorios y el aprovechamiento de la estrategia aprendida (figura \ref{figExpRes11}).
+\item En el Experimento 1.1 la performance experimenta una mejoría notable a partir de la mitad de la simulación. Esto es causado por la finalización de la etapa de exploración, deviniendo en una menor posibilidad de movimientos aleatorios y el aprovechamiento de la estrategia aprendida (\textit{figura \ref{figExpRes11}}).
 
-\item En el Experimento 1.2 (figura \ref{figExpRes12}) se nota claramente el punto de inflexión entre exploración y explotación. La diferencia con el Experimento 1.1 es la velocidad del agente, que es el doble. Esto efectivamente duplica la dificultad del agente para en llegar con éxito a destino.
+\item En el Experimento 1.2 (\textit{figura \ref{figExpRes12}}) se nota claramente el punto de inflexión entre exploración y explotación. La diferencia con el Experimento 1.1 es la velocidad del agente, que es el doble. Esto efectivamente duplica la dificultad del agente para en llegar con éxito a destino.
 
 \end{itemize}
 
-En las \textit{matrices-Q}, (cuadros \ref{qmatrix11}, \ref{qmatrix12}, \ref{qmatrix13}) se puede ver que los valores de utilidad son los esperados en casi todos los casos. Recordar
-que el primer sensor es el que esta más a la derecha del agente, es decir, el que tiene un ángulo 0 con el campo de visión. Las siguientes posiciones del vector representan los vectores a medida que el angulo incrementa entre el sensor y el campo de visión. Otro elemento a tener en cuenta es que los sensores no se distribuyen equivalentemente, si no mas bien
+En las \textit{matrices-Q}, (\textit{cuadros \ref{qmatrix11}, \ref{qmatrix12}, \ref{qmatrix13}}) se puede ver que los valores de utilidad son los esperados en casi todos los casos. Recordar que el primer sensor es el que esta más a la derecha del agente, es decir, el que tiene un ángulo 0 con el campo de visión. Las siguientes posiciones del vector representan los vectores a medida que el angulo incrementa entre el sensor y el campo de visión. Otro elemento a tener en cuenta es que los sensores no se distribuyen equivalentemente, si no mas bien
 con una mayor concentración en los 4 sensores centrales.
 
-En el Experimento 1.3 (figura \ref{figExpRes13}) el desempeño es peor debido a que es más dificil aprender con un obstáculo móvil, que intercepta al agente en distintos lugares.
+En el Experimento 1.3 (\textit{figura \ref{figExpRes13}}) el desempeño es peor debido a que es más dificil aprender con un obstáculo móvil, que intercepta al agente en distintos lugares.
 
 \begin{table}
 \begin{center}
@@ -524,12 +530,13 @@ Sensado                     &  LEFT & RIGHT & NONE  & BACK \\ \hline
 
 \subsection{Experimento 2}
 
-Este experimento consiste en un pasillo largo y angosto, con un flujo de agentes moviendose en una dirección. El pasillo tiene 3m
-de ancho y 15 m de largo. Hay 30 peatones en un extremo, donde uno usa \textit{Q-Learning}, que tienen que llegar al otro lado.
-Se experimentó con distintas densidades por metro cudrado de agentes. Los agentes se mueven con la velocidad de deseo $v_{i}^{0}$.
+Este experimento consiste en un pasillo largo y angosto, con un flujo de agentes moviendose en una dirección. El pasillo tiene 3 metros de ancho y 15 metros de largo. Hay treinta peatones en un extremo, donde uno usa \textit{Q-Learning}, que tienen que llegar al otro lado.
+
+Se experimentó con distintas densidades de agentes. Una densidad \textit{alta} ($2/m^{2}$) y otra \textit{baja} ($1/m^{2}$). Los agentes se mueven con la velocidad de deseo $v_{i}^{0}$.
+
 Los destinos de los agentes se fueron variando en los experimentos, se estudió el caso que los agentes se mueven en lineas rectas
 o hacia puntos aleatorios dentro del area de llegada. Los otros agentes que no se están entrenando usan el modelo social como 
-política de navegación. Un esquema del experimento se encuentra en la figura \ref{figExp2}.
+política de navegación. Un esquema del experimento se encuentra en la \textit{figura \ref{figExp2}}. La \textit{figura \ref{figExp2Screen}} detalla al Simulador corriendo el Experimento 2. La \textit{figura \ref{figExp2ScreenClose}} se acerca sobre el área de los agentes de baja densidad mientras que la \textit{figura \ref{figExp2ScreenHigh}} muestra una alta densidad de los agentes.
 
 En resumen se estudiarán dos variables en este esquema: la densidad y las trayectorias. Esto nos da 4 Experimentos para ejecutar:
 
@@ -540,6 +547,38 @@ En resumen se estudiarán dos variables en este esquema: la densidad y las trayec
 \item Experimento 2.4 - Densidad Alta con Destinos Cruzados
 
 \end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics{images/esquemas/ej2.png}
+\caption[Exp 2]{\small{Experimento 2 - Un corredor largo con 30 agentes}}
+\label{figExp2}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=14cm]{images/esquemas/ej2screen.png}
+\caption[Exp 2 Screen]{\small{Experimento 2 - Imagen del Simulador. Se observa el pasillo largo y la aréa de creación de agentes a la izquierda y el área destino a la derecha.}}
+\label{figExp2Screen}
+\end{figure}
+
+
+\begin{figure}
+\centering
+\includegraphics[width=14cm]{images/esquemas/ej2screenclose.png}
+\caption[Exp 2 Screen Close]{\small{Experimento 2 - Imagen del Área de Creación. Se observa el agente de \textit{Q-Learning} con color rojo. Los agentes de color azul representan agentes que implementan el modelo de \textit{fuerza social}. La densidad es de $1/m^{2}$.}}
+\label{figExp2ScreenClose}
+\end{figure}
+
+
+\begin{figure}
+\centering
+\includegraphics[width=14cm]{images/esquemas/ej2screenhigh.png}
+\caption[Exp 2 Screen High]{\small{Experimento 2 - Imagen del Area de Creación de Alta Densidad. La densidad de los agentes es de $2/m^{2}$.}}
+\label{figExp2ScreenHigh}
+\end{figure}
+
+
 
 \subsubsection{Resultados}
 Los resultados del Experimento 2 revelan que la forma de presentar el estado escogida resulta inadecuada cuando aumenta considerablemente la densidad de peatones. Al tener dicha densidad, un agente que opte por detenerse chocará en el agente detrás.
@@ -554,12 +593,7 @@ Las \textit{matrices-Q} del Experimento 2 se excluyeron del documento debido a s
 	\item Los otros agentes también esquivan al agente debido al modelo de fuerza social. Este reflejo salva malas decisiones que tomó el agente y que no se castigan.
 \end{itemize}
 
-\begin{figure}
-\centering
-\includegraphics{images/esquemas/ej2.png}
-\caption[Exp 2]{\small{Experimento 2 - Un corredor largo con 30 agentes}}
-\label{figExp2}
-\end{figure}
+
 
 
 \begin{figure}
@@ -593,6 +627,15 @@ Las \textit{matrices-Q} del Experimento 2 se excluyeron del documento debido a s
 
 \subsection{Experimento 3}
 
+El Experimento 3 es una modificación del Ejercicio 1, donde se reemplazó el osbtáculo con N agentes enfrentados. Para el aprendizaje se utiliza uno que aprende con un ``bosque'' de obstáculos (agentes fijos) en un arreglo desordenado. En este caso usar las 3 variantes de aprendizaje análogas a las del Experimento 1.
+
+\begin{itemize}
+	\item Agente con velocidad de deseo normal ($ v_{i}^{0} = 1,2 m/s$) y obstáculos fijos.
+	\item Agente con el doble de velocidad de deseo y obstáculos fijos.
+	\item Agente con velocidad de deseo normal y los obstáculos son ahora agentes móviles que se mueven en bloque todos con la misma velocidad de deseo en sentido opuesto al del agente que aprende.
+\end{itemize}
+
+Un esquema representativo del experimento se encuentra detallado en la \textit{figura \ref{figExp3}}. La \textit{figura \ref{figExp3Screen}} es una imagen de este llevandose a cabo. Se puede apreciar que el bosque de agentes es bastante denso pero tiene caminos posibles por donde el agente entrenado con \textit{Q-Learning} puede transitar. Este es de color rojo mientras que los obstáculos son de color ocre.
 
 \begin{figure}
 \centering
@@ -600,6 +643,21 @@ Las \textit{matrices-Q} del Experimento 2 se excluyeron del documento debido a s
 \caption[Exp 3]{\small{Experimento 3 - Un agente enfrentado a un bosque de agentes}}
 \label{figExp3}
 \end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=14cm]{images/esquemas/ej3screen.png}
+\caption[Exp 3]{\small{Experimento 3 - Imagen del Simulador}}
+\label{figExp3Screen}
+\end{figure}
+
+\subsubsection{Resultados}
+
+El Experimento 3.1 arroja resultados que no son positivos ni esperados. Uno esperaría encontrar algún tipo de impacto en las colisiones vs las llegadas cuando el agente deja de explorar y explota la política aprendida. Sin embargo esto no sucede y las tendencias parecen mantenerse a lo largo de la simulación. Es valioso rescatar que aún así el agente logro llegar a un ritmo constante a destino.
+
+En el Experimento 3.2 podemos concluir que el agente prácticamente no llego a destino. En realidad el agente logro llegar apenas unas 4 veces. Esto nos conduce a pensar que el alcance de visión del agente no es el adecuado para la velocidad que tiene. La velocidad es demasiado alta y no le permite actuar a tiempo y evitar la colisión.
+
+El Experimento 3.3 presentó un resultado inesperado y curioso. En vista de los experimentos anteriores, era esperable que el agente obtuviera malos resultados dada la dificultad agregada a los Experimentos o a lo sumo tendría un desempeño igual o peor que el Experimento 3.1. Al ver los gráficos (\textit{figura \ref{figExpRes32}}) vemos que sorprendentemente le fue mejor. Al consultar los replays aprendimos que la razón de esto es que los agentes obstáculos también esquivaban al agente. Si bien esto también debía ocurrir en el Experimento 2, en este los agentes obstáculos tenian mas lugar para maniobrar y lo hacían de una manera mucho mas efectiva.
 
 \begin{figure}
 \centering
@@ -624,6 +682,13 @@ Las \textit{matrices-Q} del Experimento 2 se excluyeron del documento debido a s
 
 \subsection{Experimento 4}
 
+El Experimento 4 se propone evaluar una política de navegación previamente obtenida en un entorno más aproximado a la realidad de transeúntes. El entorno es un cruce de calles perpendiculares, con agentes avanzando en ambos sentidos en cada calle. Se usarán las políticas de aprendizaje obtenidas de los Experimentos 3. Un esquema del experimento está descrito en la \textit{figura \ref{figExp4}}. La \textit{figura \ref{figExp4Screen}} muestra al simulador corriendo el experimento mientras que la \textit{figura \ref{figExp4ScreenClose}} muestra con mayor detalle los agentes. Los experimentos llevados a cabo son los siguientes:
+
+\begin{itemize}
+	\item Experimento 4.1 - Experimento 4 con la política obtenida del Experimento 3.1
+	\item Experimento 4.2 - Experimento 4 con la política obtenida del Experimento 4.2
+	\item Experimento 4.3 - Experimento 4 con la política obtenida del Experimento 4.3
+\end{itemize}
 
 \begin{figure}
 \centering
@@ -631,6 +696,31 @@ Las \textit{matrices-Q} del Experimento 2 se excluyeron del documento debido a s
 \caption[Exp 3]{\small{Experimento 4 - Cruce de calles transitadas}}
 \label{figExp4}
 \end{figure}
+
+
+
+\begin{figure}
+\centering
+\includegraphics[width=14cm]{images/esquemas/ej4screen.png}
+\caption[Exp 4]{\small{Experimento 4 - Se aprecian las áreas de llegada y de salida en todos los extremos de los pasillos.}}
+\label{figExp4Screen}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=14cm]{images/esquemas/ej4screenclose.png}
+\caption[Exp 4 Close]{\small{Experimento 4 - Area de Llegada 3. Se observa el agente ya entrenado con color verde. Los otros agentes usan el modelo de \textit{fuerza social}.}}
+\label{figExp4ScreenClose}
+\end{figure}
+
+\subsubsection{Resultados}
+
+Los resultados de este experimento están decididamente relacionados con los anteriores y otra vez sorprenden. El experimento que peor desempeño tuvo, el Experimento 4.1 (\textit{figura \ref{figExpRes41}}), era el único que tenía una \textit{Matriz de Q} que contenía algún tipo de aprendizaje.
+
+ El Experimento 4.2 y el Experimento 4.3 tuvieron un mejor desempeño. Esto a pesar que en el Experimento 3.2 el agente llego una cantidad despreciable de veces, y en el Experimento 3.3 el agente fue salvado en su mayoría por los otros agentes que lo esquivaban. Esto nos conduce nuevamente a pensar en los otros agentes y como estos esquivan al agente entrenado. Se ve que si el agente no aprendió nada, es inclusive mas beneficioso para los otros que si hubiera aprendido a esquivar él mismo (caso Experimento 4.1). 
+
+ Una razón de esto es que si los dos quieren esquivarse, es posible que los dos decidan esquivar por el mismo lado y chocar, mientras que siempre es más fácil esquivar a algo inmóvil. Por mas que hubo una leve mejora en el Experimento 4.3 respecto del Experimento 4.2, es importante recalcar que la diferencia es mínima en cantidad de llegadas exitosas.
+
 
 \begin{figure}
 \centering
