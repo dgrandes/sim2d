@@ -31,13 +31,13 @@
 
 \section{Resumen}
 
-Este proyecto tiene como objetivo la realización de un Simulador de Muchedumbres que permita la investigación de distintas políticas de movimiento. Se investigará el desempeño de técnicas de Aprendizaje Reforzado en la navegación de los agentes en distintos entornos.
+Este proyecto tiene como objetivo la realización de un Simulador de Muchedumbres que permita la investigación de distintas políticas de movimiento. Se investigará el desempeño de técnicas de \textit{aprendizaje por refuerzo} en la navegación de los agentes en distintos entornos.
 
-La modelización y simulación de muchedumbres es un problema de interés para varias disciplinas de ingeniería y logística. Este Proyecto Final de Grado tiene como objetivo la investigación de Aprendizaje por Refuerzo como política en la simulación de muchedumbres, con el deseo de encontrar una manera más realista de simular la navegación/elusión de obstáculos fijos o móviles (otros peatones).
+La modelización y simulación de muchedumbres es un problema de interés para varias disciplinas de ingeniería y logística. Este Proyecto Final de Grado tiene como objetivo la investigación de \textit{aprendizaje por refuerzo} como política en la simulación de muchedumbres, con el deseo de encontrar una manera más realista de simular la navegación/elusión de obstáculos fijos o móviles (otros peatones).
 
-La investigación de la efectividad de políticas de Aprendizaje con Refuerzo se realizó a través de un simulador. El simulador fue implementado por el equipo y permitió la creación de entornos y distintos tipo de agentes para evaluar el aprendizaje. A su vez el simulador graba las simulaciones y las reproduce posteriormente para poder analizar los resultados.
+La investigación de la efectividad de políticas de navegación se realizó a través de un simulador. El simulador fue implementado por el equipo y permitió la creación de entornos y distintos tipo de agentes para evaluar el aprendizaje. A su vez el simulador graba las simulaciones y las reproduce posteriormente para poder analizar los resultados.
 
-Los resultados a favor del aprendizaje con Refuerzo son variados. Se observan mejoras en ciertos entornos simples, pero en otros mas complejos, donde el agente debe interactuar con alta densidad de obstáculos se nota una tendencia a sobrecompensar y fallar repetidamente al intentar esquivarlos.
+Los resultados a favor del \textit{aprendizaje por refuerzo} son variados. Se observan mejoras en ciertos entornos simples, pero en otros mas complejos, donde el agente debe interactuar con alta densidad de obstáculos se nota una tendencia a sobrecompensar y fallar repetidamente al intentar esquivarlos.
 
 \pagebreak
 
@@ -155,7 +155,7 @@ El model consiste de los siguientes elementos:
 \item Un conjunto de acciones $\textit{A}$
 \item Reglas de transición entre los estados
 \item Reglas que determinen la recompensa para cada transición posible
-\item Reglas que determinen qué es lo que un agente observa en un momento dado
+\item Reglas que determinen que es lo que un agente observa en un momento dado
 \end{itemize}
 
 El aprendizaje por refuerzo consta de dos etapas diferentes:
@@ -180,10 +180,10 @@ Q(s_{t},a_{t}) \leftarrow Q(s_{t}, a_{t}) +
 	\right ]
 \end{equation}
 
-El valor que se va a actualizar de la tabla $Q(s_{t},s_{t})$ es la suma del valor viejo con una correción basada en la nueva informacion. El término 
+El valor que se va a actualizar de la tabla $Q(s_{t},s_{t})$ es la suma del valor viejo con una corrección basada en la nueva informacion. El término 
 $\alpha(s_{t},a_{t})$ es la taza de aprendizaje. Representa hasta que punto la nueva información reemplaza la anterior. Un valor de $0$ significa que el agente no ha aprendido nada, mientras que un valor de $1$ asegura que el agente considera solo la información más reciente.
 
-La recompensa es representada por $R_{t+1}$ en base a la acción tomada $a_{t}$ para el estado $s_{t}$. El factor de descuento $\gamma$, determina la importancia de recompensas futuras. Un factor $0$ significa un agente oportunista que solo considera la recompensa actual, mientras que un valor que se acerque a $1$ hace que el agente se oriente hacia recompensas de largo plazo. Un valor mayor a cero hace que los valores de $Q$ diverga. El factor de descuento se aplica a la mejor acción que se puede tomar. El valor máximo de utilidad de la próxima acción esta dado por:
+La recompensa es representada por $R_{t+1}$ en base a la acción tomada $a_{t}$ para el estado $s_{t}$. El factor de descuento $\gamma$, determina la importancia de recompensas futuras. Un factor $0$ significa un agente oportunista que solo considera la recompensa actual, mientras que un valor que se acerque a $1$ hace que el agente se oriente hacia recompensas de largo plazo. Un valor mayor a $1$ hace que los valores de $Q$ diverga. El factor de descuento se aplica a la mejor acción que se puede tomar. El valor máximo de utilidad de la próxima acción esta dado por:
 \begin{equation}
 max_{\alpha_{t+1}}Q(s_{t+1},a_{t+1})
 \end{equation}
@@ -372,7 +372,7 @@ A continuación se presentan los resultados de los 4 experimentos propuestos. Los
 
 \subsection{Formatos de Salida}
 
-Las simulaciones arrojan resultados en formato de log, los cuales se analizan para construir gráficos para dos métricas distintas:
+Las simulaciones arrojan resultados en formato de log, los cuáles se analizan para construir gráficos para dos métricas distintas:
 
 \begin{itemize}
 \item Desempeño: Representa la cantidad de llegadas con éxito contra la cantidad de colisiones que sufrió un agente.
@@ -458,7 +458,7 @@ El análisis de los gráficos de desempeño revela importantes consecuencias del co
 En las \textit{matrices-Q}, (\textit{cuadros \ref{qmatrix11}, \ref{qmatrix12}, \ref{qmatrix13}}) se puede ver que los valores de utilidad son los esperados en casi todos los casos. Recordar que el primer sensor es el que esta más a la derecha del agente, es decir, el que tiene un ángulo 0 con el campo de visión. Las siguientes posiciones del vector representan los vectores a medida que el angulo incrementa entre el sensor y el campo de visión. Otro elemento a tener en cuenta es que los sensores no se distribuyen equivalentemente, si no mas bien
 con una mayor concentración en los 4 sensores centrales.
 
-En el Experimento 1.3 (\textit{figura \ref{figExpRes13}}) el desempeño es peor debido a que es más dificil aprender con un obstáculo móvil, que intercepta al agente en distintos lugares.
+En el Experimento 1.3 (\textit{figura \ref{figExpRes13}}) el desempeño es peor debido a que es más difícil aprender con un obstáculo móvil, que intercepta al agente en distintos lugares.
 
 \begin{table}
 \begin{center}
@@ -588,7 +588,7 @@ Las \textit{matrices-Q} del Experimento 2 se excluyeron del documento debido a s
 
 \begin{itemize}
 	\item El agente se encuentra atrapado entre otros agentes y no existe una acción que lo haga salir de esa posición, tome la acción que tome choca con otro agente en los costados y por eso se lo recompensa de manera negativa.
-	\item El agente se encuentra atrapado entre otros agentes, si decide frenar sucede muy seguido que un agente más retrasado lo choca y por eso se lo recompensa de manera negativa también. Por más que el agente continúe moviendose a la velocidad promedio del grupo, existen colisiones por pequeños destellos de velocidad dentro del grupo. Debido al modelo de fuerza social, cuando dos agentes estan muy cerca se producen fuerzas que \"empujan\" con gran aceleración a alguno de estos agentes. 
+	\item El agente se encuentra atrapado entre otros agentes, si decide frenar sucede muy seguido que un agente más retrasado lo choca y por eso se lo recompensa de manera negativa también. Por más que el agente continúe moviendose a la velocidad promedio del grupo, existen colisiones por pequeños destellos de velocidad dentro del grupo. Debido al modelo de fuerza social, cuando dos agentes estan muy cerca se producen fuerzas que ``empujan'' con gran aceleración a alguno de estos agentes. 
 	\item Cuando el agente aplica una fuerza correctiva, no puede moderar la magnitud de la misma, lo que causa que al tratar de esquivar un obstáculo termine golpeando a otro.
 	\item Los otros agentes también esquivan al agente debido al modelo de fuerza social. Este reflejo salva malas decisiones que tomó el agente y que no se castigan.
 \end{itemize}
@@ -657,7 +657,7 @@ El Experimento 3.1 arroja resultados que no son positivos ni esperados. Uno espe
 
 En el Experimento 3.2 podemos concluir que el agente prácticamente no llego a destino. En realidad el agente logro llegar apenas unas 4 veces. Esto nos conduce a pensar que el alcance de visión del agente no es el adecuado para la velocidad que tiene. La velocidad es demasiado alta y no le permite actuar a tiempo y evitar la colisión.
 
-El Experimento 3.3 presentó un resultado inesperado y curioso. En vista de los experimentos anteriores, era esperable que el agente obtuviera malos resultados dada la dificultad agregada a los Experimentos o a lo sumo tendría un desempeño igual o peor que el Experimento 3.1. Al ver los gráficos (\textit{figura \ref{figExpRes32}}) vemos que sorprendentemente le fue mejor. Al consultar los replays aprendimos que la razón de esto es que los agentes obstáculos también esquivaban al agente. Si bien esto también debía ocurrir en el Experimento 2, en este los agentes obstáculos tenian mas lugar para maniobrar y lo hacían de una manera mucho mas efectiva.
+El Experimento 3.3 presentó un resultado inesperado y curioso. En vista de los experimentos anteriores, era esperable que el agente obtuviera malos resultados dada la dificultad agregada a los Experimentos o a lo sumo tendría un desempeño igual o peor que el Experimento 3.1. Al ver los gráficos (\textit{figura \ref{figExpRes32}}) vemos que sorprendentemente le fue mejor. Al consultar los replays aprendimos que la razón de esto es que los agentes obstáculos también esquivaban al agente. Si bien esto también debía ocurrir en el Experimento 2, en este los agentes obstáculos tenian mas lugar para maniobrar y lo hacían de una manera mucho más efectiva.
 
 \begin{figure}
 \centering
@@ -719,7 +719,7 @@ Los resultados de este experimento están decididamente relacionados con los ante
 
  El Experimento 4.2 y el Experimento 4.3 tuvieron un mejor desempeño. Esto a pesar que en el Experimento 3.2 el agente llego una cantidad despreciable de veces, y en el Experimento 3.3 el agente fue salvado en su mayoría por los otros agentes que lo esquivaban. Esto nos conduce nuevamente a pensar en los otros agentes y como estos esquivan al agente entrenado. Se ve que si el agente no aprendió nada, es inclusive mas beneficioso para los otros que si hubiera aprendido a esquivar él mismo (caso Experimento 4.1). 
 
- Una razón de esto es que si los dos quieren esquivarse, es posible que los dos decidan esquivar por el mismo lado y chocar, mientras que siempre es más fácil esquivar a algo inmóvil. Por mas que hubo una leve mejora en el Experimento 4.3 respecto del Experimento 4.2, es importante recalcar que la diferencia es mínima en cantidad de llegadas exitosas.
+ Una razón de esto es que si los dos quieren esquivarse, es posible que los dos decidan esquivar por el mismo lado y chocar, mientras que siempre es más fácil esquivar a algo inmóvil. Por más que hubo una leve mejora en el Experimento 4.3 respecto del Experimento 4.2, es importante recalcar que la diferencia es mínima en cantidad de llegadas exitosas.
 
 
 \begin{figure}
@@ -744,6 +744,53 @@ Los resultados de este experimento están decididamente relacionados con los ante
 \end{figure}
 
 \section{Conclusión}
+
+Se modificó el modelo de fuerza social propuesto por Helbing \cite{helbing:panic} para incluir elementos del aprendizaje por refuerzo. 
+Se mantuvieron las fuerzas de deseo y granular pero se reemplazó la fuerza social por un ajuste de dirección que 
+surge de la inclusión del aprendizaje por refuerzo.
+Se implementó un simulador que tiene la capacidad para manejar distintos métodos de movimiento, entre ellos el 
+modelo de fuerza social.
+
+El esquema propuesto de sensores y actuadores como reemplazo de la fuerza social, resulta adecuado en los casos de baja densidad de obstáculos, como en el experimento 1, 
+para otros casos de mayor complejidad como los de los experimentos 3 y 4 este esquema no es suficiente para navegar eficientemente (es decir sin colisiones).
+
+Otros posibles enfoques para intentar mejorar esta limitación sería:
+\begin{itemize}
+	\item Aumentar el número de sensores y sus valores.
+	\item Redefinir el riesgo de choque.
+	\item Un modelo donde el agente tenga una cantidad de sensores similar, agrupados en un ángulo de menor amplitud pero con un rango de visión considerablemente mayor como por ejemplo 30m. Los sensores incluso podrían funcionar como rayos en vez de triángulos ya que lo que se intenta evitar es chocar con obstáculos de gran tamaño y para ello no es necesario tener noción de que hay entre cada sensor sino que es suficiente con tener una visión general de los obstáculos en distancia.
+\end{itemize}
+
+
+\subsection{Modelo Propuesto}
+
+La idea atrás de este modelo es que el maniobrar en situaciones de alta densidad de obstáculos sea manejado por el modelo de fuerza social pero que el agente tenga la suficiente inteligencia para esquivar obstáculos que no le reportan un perjuicio inmediatamente.
+
+Para lograr esto los sensores de Q-Learning solo podrían sensar obstáculos mas allá del rango inmediato del agente, es decir a partir de los 2 o 3 metros.
+El esquema de refuerzo no contemplaría refuerzos negativos sino que recompensaría al agente cuando sus sensores detecten menos obstáculos que en una iteración anterior. Se debería dar mayor importancia al modelo de fuerza social cuando hay obstáculos cerca ya que siempre será más importante la resolución inmediata de conflictos.
+
+\begin{figure}
+\centering
+\includegraphics[width=6cm]{images/modelo_sensores.png}
+\caption[Modelo Sensores]{\small{Modelo Propuesto - La sección verde es la detectada por \textit{Q-Learning}. La parte sin sombrear es para ser resuelta por un modelo de fuerza social.}}.
+\label{figModeloSensores}
+\end{figure}
+
+
+\subsection{Posibilidad de crear entornos usando una herramienta gráfica}
+
+En este momento el simulador solo acepta entornos creados a partir de un archivo JSON. Sería de gran utilidad que éste permitiera la creación de entornos y agentes utilizando el mouse y arrastrando estos elementos al área de simulación.
+Idealmente se permitiría grabar los entornos en el mismo formato JSON para luego poder abrirlos y correrlos en otro momento.
+
+\subsection{Posibilidad de exportar simulaciones en formato mp4 o AVI}
+
+Las simulaciones creadas por este simulador no pueden verse en ningún otro lado, es decir, se requiere del simulador para poder reproducir los replays. Sería conveniente para el usuario poder exportar los replays a algún formato no propietario de vídeo para poder analizarlos cuando le resulte cómodo.
+El problema a resolver para agregar esta funcionalidad es el tamanño que tendrían los vídeos si se guardara cuadro por cuadro todos los estados de la simulación por lo que habría que encontrar un buen compromiso entre calidad y tamaño.
+
+\subsection{Mapeo de agentes en un KD-Tree }
+
+Lo más costoso al realizar las simulaciones es el sensado y el cálculo de fuerza social. Ya se implementaron optimizaciones que descartan agentes y obstáculos que se encuentran mas allá de una distancia prudencial pero una forma adicional de optimizar este cálculo sería agregar los agentes a un árbol KD\footnote{En ciencias de la computación, un Árbol KD (abreviatura de árbol k-dimensional) es una estructura de datos de particionado del espacio que organiza los puntos en un espacio euclídeo de k dimensiones. Los árboles KD son un caso especial de los árboles BSP.
+Un árbol KD emplea sólo planos perpendiculares a uno de los ejes del sistema de coordenadas. Esto difiere de los árboles BSP, donde los planos pueden ser arbitrarios. Además, todos los nodos de un árbol KD, desde el nodo raíz hasta los nodos hoja, almacenan un punto. Mientras tanto, en los árboles BSP son las hojas los únicos nodos que contienen puntos (u otras primitivas geométricas). Como consecuencia, cada plano debe pasar a través de uno de los puntos del árbol KD} para obtener más rápidamente los vecinos inmediatos y de esta manera acelerar la simulación.
 
 \bibliographystyle{abbrv}
 \bibliography{01}
