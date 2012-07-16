@@ -33,7 +33,7 @@
 
 Este proyecto tiene como objetivo la realización de un Simulador de Muchedumbres que permita la investigación de distintas políticas de movimiento. Se investigará el desempeño de técnicas de \textit{aprendizaje por refuerzo} en la navegación de los agentes en distintos entornos.
 
-La modelización y simulación de muchedumbres es un problema de interés para varias disciplinas de ingeniería y logística. Este Proyecto Final de Grado tiene como objetivo la investigación de \textit{aprendizaje por refuerzo} como política en la simulación de muchedumbres, con el deseo de encontrar una manera más realista de simular la navegación/elusión de obstáculos fijos o móviles (otros peatones).
+La modelización y simulación de muchedumbres es un problema de interés para varias disciplinas de ingeniería y logística. El objetivo la investigación de \textit{aprendizaje por refuerzo} como política en la simulación de muchedumbres, con el deseo de encontrar una manera más realista de simular la navegación/elusión de obstáculos fijos o móviles (otros peatones).
 
 La investigación de la efectividad de políticas de navegación se realizó a través de un simulador. El simulador fue implementado por el equipo y permitió la creación de entornos y distintos tipo de agentes para evaluar el aprendizaje. A su vez el simulador graba las simulaciones y las reproduce posteriormente para poder analizar los resultados.
 
@@ -51,7 +51,7 @@ En la actualidad existen diversos métodos que simulan el comportamiento de agent
 
 Lo que se propone es modificar este modelo por uno de aprendizaje reforzado. El aprendizaje por refuerzo es un área de estudio que contempla como un agente toma decisiones en un entorno no totalmente conocido. El agente maximiza la utilidad mediante refuerzos, dependiendo si tomó una buena o mala decisión. A su vez el agente tiene que encontrar un balance apropiado entre la exploración de mejores resultados y la explotación de conocimiento ya establecido.
 
-Se abordará el problema utilizando el método de aprendizaje por refuerzo llamado Q-Learning. Este método consiste en aprender asignando diferentes utilidades. El agente cambia de un estado a otro realizando una acción a $\in$ A. El algoritmo define la función que define la calidad, la cual el agente intentará maximizar a la hora de tomar decisiones, como:
+Se abordará el problema utilizando el método de aprendizaje por refuerzo llamado Q-Learning. Este método consiste en aprender asignando diferentes utilidades. El agente cambia de un estado a otro realizando una acción a $\in$ A. La función que define la calidad, la cual el agente intentará maximizar a la hora de tomar decisiones, es:
 
 \begin{equation}
 \label{eq-qlearning1}
@@ -63,7 +63,7 @@ Se entrenará utilizando aprendizaje por refuerzo en 3 entornos diferentes y lueg
 \section{Antecedentes}
 \subsection{Modelo de Fuerza Social}
 
-El modelo de fuerza social \cite{helbing:panic} consiste en modelar el comportamiento como una combinación de fuerzas sociológicas y físicas:
+El modelo de fuerza social \cite{helbing:panic} consiste en modelar el comportamiento como una combinación de fuerzas físicas que intentan representar comportamientos:
 
 \begin{itemize}
 \item Fuerza de Deseo 
@@ -88,11 +88,11 @@ m_{i}\dfrac{d \mathbf{v}_{i}}{dt} = m_{i} \frac{
 donde $\mathbf{f}_{ij}$ son las fuerzas entre los agentes y $\mathbf{f}_{iW}$ son las fuerzas entre el agente y los obstáculos.
 
 \subsubsection{Fuerza de Deseo}
-El primer término de la ecuación es la \textit{fuerza de deseo} del agente, donde $\mathbf{e}_{i}^{0}$ es el vector de dirección al punto de interés. $v_{i}^{0}$ es la velocidad de deseo del agente que es modificada por la velocidad actual $\mathbf{v}_{i}(t)$. $\tau_{i}$ representa el tiempo de reacción o demora que tiene el agente en cambiar su velocidad.
+El primer término de la ecuación es la \textit{fuerza de deseo} del agente, donde $\mathbf{e}_{i}^{0}$ es el vector de dirección al punto de interés. $v_{i}^{0}$ es la velocidad deseada, la cual es un factor en la velocidad instantanea. $\tau_{i}$ representa el tiempo de reacción o demora que tiene el agente en cambiar su velocidad.
 
 \subsubsection{Fuerza Social y Granular}
-Las fuerzas entre agentes y obstaculos tienen dos componentes, la \textit{fuerza social} y la \textit{fuerza granular}.
-Definimos las fuerzas entre los agentes ($\mathbf{f}_{i}$) de la siguiente manera:
+Las fuerzas entre agentes y obstáculos tienen dos componentes, la \textit{fuerza social} y la \textit{fuerza granular}.
+Definimos las fuerzas entre los agentes ($\mathbf{f}_{ij}$) de la siguiente manera:
 \begin{equation}
 \mathbf{f}_{ij} = \left \{ A_{i}\; \exp \left [ \dfrac{r_{ij} - d_{ij}}{B_{i}}\right ] 
 + 
@@ -121,7 +121,7 @@ La segunda componente es una fuerza que impide el movimiento tangencial relativo
 \kappa g(r_{ij} - d_{ij}) \Delta v_{ij}^{t}\mathbf{t}_{ij}
 \end{equation}
 
-Es igual a la anterior componente en magnitud, lo que cambia es el versor o la dirección. $\mathbf{t}_{ij}$ es la dirección tangencial y esta dada por $\mathbf{t}_{ij}\; =\; (-n_{ij},n_{ij})$. $\Delta v_{ij}^{t}$ es la diferencia de velocidad tangencial entre los agentes.
+$\mathbf{t}_{ij}$ es la dirección tangencial y esta dada por $\mathbf{t}_{ij}\; =\; (-n_{ij},n_{ij})$. $\Delta v_{ij}^{t}$ es la diferencia de velocidad tangencial entre los agentes.
 
 La fuerza entre el agente y los obstaculos, en nuestro caso las paredes, esta dada por:
 \begin{equation}
@@ -137,7 +137,7 @@ La ecuación es analoga a la de los agentes salvo por la dirección, que en este c
 
 \subsubsection{Desventajas}
 
-La principal desventaja del model de fuerza social, y el motivo por el cúal se busca una alternativa a este, es que los agentes tienden a atascarse cuando se enfrentan a un obstáculo que yace en la dirección al objetivo. Se pretende solucionar este problema permitiendo al agente ``eludir'' obstáculos antes de llegar a la situación de contacto.
+La principal desventaja del modelo de fuerza social, y el motivo por el cúal se busca una alternativa a este, es que los agentes tienden a atascarse cuando se enfrentan a un obstáculo que yace en la dirección al objetivo \textit{figura \ref{figProbFuerzaSocial}} . Se pretende solucionar este problema permitiendo al agente ``eludir'' obstáculos antes de llegar a la situación de contacto.
 
 \begin{figure}
 \centering
@@ -147,15 +147,15 @@ La principal desventaja del model de fuerza social, y el motivo por el cúal se b
 \end{figure}
 
 \subsection{Aprendizaje por Refuerzo}
-El aprendizaje por refuerzo está fuertemente inspirado por la psicología conductista y el concepto de enseñar con medio de recompensas las decisiones que toma el individuo.
+El aprendizaje por refuerzo está fuertemente inspirado por la psicología conductista y el concepto de enseñar por medio de recompensas las decisiones que toma el individuo.
 
 El model consiste de los siguientes elementos:
 \begin{itemize}
 \item conjunto de estados $\textit{S}$
-\item Un conjunto de acciones $\textit{A}$
-\item Reglas de transición entre los estados
-\item Reglas que determinen la recompensa para cada transición posible
-\item Reglas que determinen que es lo que un agente observa en un momento dado
+\item conjunto de acciones $\textit{A}$
+\item reglas de transición entre los estados
+\item reglas que determinen la recompensa para cada transición posible
+\item reglas que determinen que es lo que un agente observa en un momento dado
 \end{itemize}
 
 El aprendizaje por refuerzo consta de dos etapas diferentes:
@@ -167,7 +167,7 @@ El aprendizaje por refuerzo consta de dos etapas diferentes:
 
 \section{Q-Learning}
 
-El método elegido para el aprendizaje por refuerzo es Q-Learning. Q-Learning es una técnica de aprendizaje por refuerzos que se ajusta perfectamente a los requerimientos del simulador ya que no requiere que se modele el sistema completo para que este sea efectivo, en todo momento el agente solo está consciente de lo que le rodea y nada más.
+El método elegido para el aprendizaje por refuerzo es Q-Learning. Q-Learning es una técnica de aprendizaje por refuerzos que se ajusta perfectamente a los requerimientos del simulador ya que no requiere que se modele el sistema completo para que este sea efectivo, en todo momento el agente solo está conciente de lo que le rodea y nada más.
 El proceso de decisión del agente esta dado por la siguiente función de actualización:
 
 \begin{equation}
@@ -181,7 +181,7 @@ Q(s_{t},a_{t}) \leftarrow Q(s_{t}, a_{t}) +
 \end{equation}
 
 El valor que se va a actualizar de la tabla $Q(s_{t},s_{t})$ es la suma del valor viejo con una corrección basada en la nueva informacion. El término 
-$\alpha(s_{t},a_{t})$ es la taza de aprendizaje. Representa hasta que punto la nueva información reemplaza la anterior. Un valor de $0$ significa que el agente no ha aprendido nada, mientras que un valor de $1$ asegura que el agente considera solo la información más reciente.
+$\alpha(s_{t},a_{t})$ es la tasa de aprendizaje y representa hasta que punto la nueva información reemplaza la anterior. Un valor de $0$ significa que el agente no ha aprendido nada, mientras que un valor de $1$ asegura que el agente considera solo la información más reciente.
 
 La recompensa es representada por $R_{t+1}$ en base a la acción tomada $a_{t}$ para el estado $s_{t}$. El factor de descuento $\gamma$, determina la importancia de recompensas futuras. Un factor $0$ significa un agente oportunista que solo considera la recompensa actual, mientras que un valor que se acerque a $1$ hace que el agente se oriente hacia recompensas de largo plazo. Un valor mayor a $1$ hace que los valores de $Q$ diverga. El factor de descuento se aplica a la mejor acción que se puede tomar. El valor máximo de utilidad de la próxima acción esta dado por:
 \begin{equation}
@@ -197,18 +197,18 @@ El simulador desarrollado cuenta con las siguientes características:
 \begin{itemize}
 \item Configuración de agentes por medio de archivo.
 \item Configuración de entorno por medio de archivo.
-\item Configuración de frame skip desde GUI. El usuario puede cambiar el frame skip del simulador. Un frameskip alto permite que la actualización visual se realice en una mayor de pasos. Esto permite liberar el procesador para realizar iteraciones de simulación mas rápidamente.
+\item Configuración de salto de cuadros desde GUI. El usuario puede cambiar el salto de cuadros del simulador. Un valor de salto de cuadros alto permite que la actualización visual se realice en una cantidad mayor de pasos. Esto permite liberar el procesador para realizar iteraciones de simulación mas rápidamente.
 \item Permite guardar simulaciones en formato binario.
 \item Permite guardar simulaciones de manera comprimida.
 \item Permite reproducir simulaciones guardadas en formato binario y/o comprimidas.
 \item Durante la simulación el usuario puede hacer click derecho sobre un agente para ver un panel que se actualiza en tiempo real con la posición y la descomposición de las fuerzas que actúan sobre él.
-\item Durante la simulación el usuario puede hacer click para agregar un overlay sobre los agentes que indica la dirección y magnitud de las fuerzas que actúan sobre él.
+\item Durante la simulación el usuario puede hacer click para agregar un indicador sobre los agentes que indica la dirección y magnitud de las fuerzas que actúan sobre él.
 \item Posibilidad de pausar una simulación.
 \item Posibilidad de reiniciar una simulación.
-\item El simulador guarda el estado de los agentes que utilizan Q-Learning a archivos de log para su posterior análisis.
+\item El simulador guarda el estado de los agentes que utilizan Q-Learning en archivos de log para su posterior análisis.
 \end{itemize}
 
-Se presta soporte para la declaración de agentes de variados diámetros y masas, permitiendo también al usuario que declare que tipo de movimiento deberá seguir el agente. También se define cual será el punto hacia el cual el agente deberá ir.
+Se presta soporte para la declaración de agentes de variados diámetros y masas, permitiendo también al usuario que declare el tipo de movimiento deberá seguir el agente. También se define cuál será el punto hacia el cual el agente deberá ir.
 Se pueden declarar también obstáculos de formas geométricas arbitrarias.
 
 Finalmente se permite la declaración de sumideros (puntos de llegada o metas) y de generadores (puntos de donde se generan agentes).
@@ -217,29 +217,13 @@ El simulador fue desarrollado utilizando \textit{Java} y \textit{Swing}. Consta 
 
 La simulación de agentes se realiza utilizando \textit{Thread Pools} que permiten paralelizar los cálculos dentro de una misma iteración y mejorar el tiempo que toman las mismas.
 
-Teniendo en cuenta ciertas dificultades que se encontraron durante el desarrollo, principalmente en el área de GUI, 
-consideramos que \textit{Java}, si bien es un lenguaje muy flexible, puede no haber sido la mejor elección sobre la cual 
-construir el proyecto.
-Una mejor elección podría ser la utilización de un motor de video juegos para poder aprovechar la sincronización de 
-threads y las vastas librerías de vectores y física que estos motores poseen. Entre ellos los que más llaman la atención 
-son:
-
-\begin{itemize}
-\item Cocos2d: (http://cocos2d.org/) es una librería de Python opensource que existe desde febrero de 2008. Su principal 
-ventaja sobre la utilización de JAVA es como ya se mencionó, que este motor permite un manejo mas cómodo de la 
-graficación. Su otra ventaja es que al estar basada sobre OpenGL provee una interfaz mas fluida al usuario.
-\item Unity3D: (http://unity3d.com/) es un motor de vídeo juegos con soporte nativo multiplataforma. Si bien no es 
-opensource como Cocos2d, provee con un entorno de edición que facilita tareas típicas que acelera mucho el 
-desarrollo. En nuestra opinión esta es la mejor de las 2 opciones.
-\end{itemize}
-
 \subsection{Modos de Uso}
 
 El simulador cuenta con dos modos principales:
 
 \begin{itemize}
 \item Simulación: Donde el usuario configura el simulador con archivos de entorno y agentes y realiza las simulaciones.
-\item Reproducción o Replay: Donde el usuario configura el simulador con un archivo previamente generado que guarda el estado de los agentes en cada intervalo de tiempo.
+\item Reproducción o Replay: Donde el usuario configura el simulador con un archivo previamente generado que guarda el estado de los agentes en cada intervalo de tiempo. Ver \textit{figura \ref{figSimPlay}} y \textit{figura \ref{figSimReplay}}.
 \end{itemize}
 
 \begin{figure}
@@ -267,13 +251,11 @@ de simulación.
 Los parámetros utilizados en los cálculos de la Fuerza Social son los siguientes:
 \begin{itemize}
 \item Diferencial de tiempo: $dt \; = \; 0.01s$.
-\item Velocidad de Deseo: $v_{i}^{0} \; = \; 1,2m/s$. 
-
-Pues esa es la velocidad típica a la que caminan las personas.
+\item Velocidad de Deseo: $v_{i}^{0} \; = \; 1,2m/s$. (Es la velocidad típica a la que caminan las personas)
 
 \end{itemize}
 Es posible determinar los parámetros de Q-Learning en el menú del Simulador. 
-En nuestras simulaciones se usaron los siguientes parametros:
+En nuestras simulaciones se usaron los siguientes parámetros:
 \begin{itemize}
 \item Factor de Aprendizaje ($\alpha$) = $0.1$
 \item Factor de Descuento ($\gamma$) = $0.9$
@@ -287,7 +269,7 @@ Los estados han sido modelados como un vector de estado de sensores dentro del a
 
 Los sensores se sitúan cubriendo todo el espectro visual, con mayor concentración en la zona frontal, (ver figura de distribución de sensores). Inicialmente se evaluó la posibilidad de utilizar 6 sensores distribuidos uniformemente a lo largo del arco visual del agente pero luego de realizar experimentos con esta configuración se optó por un modelo de 8 sensores con mayor concentración en la zona frontal.
 
-Se probaron ambas alternativas en diversos escenarios y observamos mejoras de hasta 40\% en llegadas exitosas a destino versus colisiones. El costo viene con el cáluclo del sensado, que toma un 25\% más.
+Se probaron ambas alternativas en diversos escenarios y observamos mejoras de hasta 40\% en llegadas exitosas a destino versus colisiones. El costo viene con el cálculo del sensado, que toma un 25\% más.
 
 Los agentes tienen capacidad de observar hasta una distancia de 10m.
 
@@ -305,7 +287,7 @@ La fórmula que calcula el riesgo entre el agente $i$ y el agente $k$ es la sigui
 R_{ik} = ((\vec{v}_{i} - \vec{v}_{k}) \cdot (\vec{p}_{i} - \vec{p}_{k}))
 \end{equation}
 
-Donde $\vec{v}$ es la velocidad y $\vec{p}$ es la posición de los respectivos agentes. 
+donde $\vec{v}$ es la velocidad y $\vec{p}$ es la posición de los respectivos agentes. 
 
 El riesgo se interpreta de la siguiente manera:
 
@@ -316,7 +298,7 @@ El riesgo se interpreta de la siguiente manera:
 \item $2$ si $R_{ik} > v_{i}^{0}/2$
 \end{itemize}
 
-Donde $v_{i}^{0}$ es la velocidad de deseo del agente.
+donde $v_{i}^{0}$ es la velocidad de deseo del agente.
 
 En la \textit{figura \ref{figSensores}} tenemos un esquema del rango de visión de los sensores en las distintas alineaciones. La configuración de 8 sensores aprovecha huecos en el arco frontal de visión que la configuración de 6 sensores es incapaz de reconocer.
 \begin{figure}
@@ -335,19 +317,19 @@ Las acciones que el agente puede tomar son las siguientes:
 \textbf{Nombre} & \textbf{Descripción} \\ \hline \hline
 ACTION\_NONE & El agente no hace nada para cambiar su trayectoria. El agente elige esta acción cuando no detecta amenazas. \\ \hline
 ACTION\_BACK  & El agente activa un actuador que le imprime una fuerza de $0.5 \times v_{i}^{0}$ en dirección opuesta a su velocidad actual. \\ \hline
-ACTION\_LEFT & El agente activa una actuador que le imprime una fuerza de $v_{i}^{0}$ hacia su izquierda. \\ \hline
+ACTION\_LEFT & El agente activa un actuador que le imprime una fuerza de $v_{i}^{0}$ hacia su izquierda. \\ \hline
 ACTION\_RIGHT & El agente activa un actuador que le imprime una fuerza de $v_{i}^{0}$ hacia su derecha. \\ \hline
 \end{tabular}
 \end{center}
 
-Donde $v_{i}^{0}$ es la velocidad de deseo del agente.
+donde $v_{i}^{0}$ es la velocidad de deseo del agente.
 
 \subsection{Esquema de Refuerzos}
 Se decidió por un esquema de refuerzos negativos. Cada vez que el agente choca con otro agente se refuerza con un valor de $-1$. La decisión se basa en que al seguir presente la fuerza de deseo mientras el agente aprende utilizando Q-Learning no es necesario recompensarlo por avanzar correctamente.
 
 \subsection{Exploración vs Explotación}
 
-Inicialmente el agente tiene una probabilidad de exporar del 100\%. Esta probabilidad decrece a lo largo de la simulación, forzando a que se explote más mientras mas avanzada este la simulación. Toda exploración termina antes del 66\% de la simulación. Desde ahí en adelante el agente solo explota las decisiones aprendidas, no explora nuevas. En la \textit{figura \ref{figexploracionvsexplotacion}} se observa como decrece la probabilidad de exploración versus los pasos de simulación transcurridos.
+Inicialmente el agente tiene una probabilidad de explorar del 100\%. Esta probabilidad decrece a lo largo de la simulación, forzando a que se explote más mientras mas avanzada este la simulación. Toda exploración termina antes del 66\% de la simulación. Desde ahí en adelante el agente solo explota las decisiones aprendidas, no explora nuevas. En la \textit{figura \ref{figexploracionvsexplotacion}} se observa como decrece la probabilidad de exploración versus los pasos de simulación transcurridos.
 
 \begin{figure}
 \centering
@@ -361,12 +343,12 @@ Inicialmente el agente tiene una probabilidad de exporar del 100\%. Esta probabi
 A continuación se presentan los resultados de los 4 experimentos propuestos. Los supuestos para las simulaciones son los siguientes:
 
 \begin{itemize}
-\item Se entrenó el agente drante $1000$ pasos de decisión de Q-Learning.
-\item Se evalúa Q-Learning cada el equivalente a $200ms$ en tiempo de simulación.
+\item Se entrenó el agente durante $1000$ pasos de decisión de Q-Learning.
+\item Se evalúa Q-Learning cada $200ms$ en tiempo de simulación.
 \item El \textit{decay rate} (el factor que decide cuando un agente debe explorar y cuando explotar) vale $0.15$. Esto quiere decir que en $2/3$ de la simulación el agente deja de explorar por completo.
-\item Solo se otorgan refuerzos negativos cuando el agente colisiona con otro agente o con un obstáculo.
+\item Sólo se otorgan refuerzos negativos cuando el agente colisiona con otro agente o con un obstáculo.
 \item No se otorgan refuerzos positivos.
-\item El desempeño de una simulación se mide por el ratio \textit{llegadas}/\textit{colisiones}.
+\item El desempeño de una simulación se mide por la razón \textit{llegadas}/\textit{colisiones}.
 \item Cuando debe decidir, el agente elige la acción con utildad menos negativa.
 \end{itemize}
 
@@ -379,7 +361,7 @@ Las simulaciones arrojan resultados en formato de log, los cuáles se analizan pa
 \item Velocidad: Representa la velocidad a la que se trasladó el agente durante el intervalo de tiempo entre decisiones de Q-Learning.
 \end{itemize}
 
-Se loguea la matriz-Q que resultó del experimento para poder utilizarla en futuras simulaciones. El formato de la matriz crudo es algo difícil de analizar por lo que los resultados que aquí se presentan se acompaña las matrices en un formato mas ordenado.
+Se imprime la matriz-Q que resultó del experimento para poder utilizarla en futuras simulaciones. El formato de la matriz es algo difícil de analizar por lo que los resultados que aquí se presentan se acompaña las matrices en un formato más ordenado.
 
 El estado de la matriz-Q debe interpretarse de izquierda a derecha, es decir que el primer valor del vector corresponde al sensor de la derecha y el último al último sensor de la izquierda.
 
@@ -449,9 +431,9 @@ El Experimento 1.1 es una prueba simple de la capacidad del simulador. En los do
 El análisis de los gráficos de desempeño revela importantes consecuencias del comportamiento del agente que aprende.
 \begin{itemize}
 
-\item En el Experimento 1.1 la performance experimenta una mejoría notable a partir de la mitad de la simulación. Esto es causado por la finalización de la etapa de exploración, deviniendo en una menor posibilidad de movimientos aleatorios y el aprovechamiento de la estrategia aprendida (\textit{figura \ref{figExpRes11}}).
+\item En el Experimento 1.1 la performance experimenta una mejoría notable a partir de la mitad de la simulación. Esto es causado por la finalización de la etapa de exploración, deviniendo en una menor cantidad de movimientos aleatorios y el aprovechamiento de la estrategia aprendida (\textit{figura \ref{figExpRes11}}).
 
-\item En el Experimento 1.2 (\textit{figura \ref{figExpRes12}}) se nota claramente el punto de inflexión entre exploración y explotación. La diferencia con el Experimento 1.1 es la velocidad del agente, que es el doble. Esto efectivamente duplica la dificultad del agente para en llegar con éxito a destino.
+\item En el Experimento 1.2 (\textit{figura \ref{figExpRes12}}) se nota claramente el punto de inflexión entre exploración y explotación. La diferencia con el Experimento 1.1 es la velocidad del agente, que es el doble. Esto efectivamente duplica la dificultad del agente para llegar con éxito a destino.
 
 \end{itemize}
 
@@ -791,6 +773,24 @@ El problema a resolver para agregar esta funcionalidad es el tamanño que tendría
 
 Lo más costoso al realizar las simulaciones es el sensado y el cálculo de fuerza social. Ya se implementaron optimizaciones que descartan agentes y obstáculos que se encuentran mas allá de una distancia prudencial pero una forma adicional de optimizar este cálculo sería agregar los agentes a un árbol KD\footnote{En ciencias de la computación, un Árbol KD (abreviatura de árbol k-dimensional) es una estructura de datos de particionado del espacio que organiza los puntos en un espacio euclídeo de k dimensiones. Los árboles KD son un caso especial de los árboles BSP.
 Un árbol KD emplea sólo planos perpendiculares a uno de los ejes del sistema de coordenadas. Esto difiere de los árboles BSP, donde los planos pueden ser arbitrarios. Además, todos los nodos de un árbol KD, desde el nodo raíz hasta los nodos hoja, almacenan un punto. Mientras tanto, en los árboles BSP son las hojas los únicos nodos que contienen puntos (u otras primitivas geométricas). Como consecuencia, cada plano debe pasar a través de uno de los puntos del árbol KD} para obtener más rápidamente los vecinos inmediatos y de esta manera acelerar la simulación.
+
+\subsection{Elección del lenguaje y plataforma}
+
+Teniendo en cuenta ciertas dificultades que se encontraron durante el desarrollo, principalmente en el área de GUI, 
+consideramos que \textit{Java}, si bien es un lenguaje muy flexible, puede no haber sido la mejor elección sobre la cual 
+construir el proyecto.
+Una mejor elección podría ser la utilización de un motor de video juegos para poder aprovechar la sincronización de 
+threads y las vastas librerías de vectores y física que estos motores poseen. Entre ellos los que más llaman la atención 
+son:
+
+\begin{itemize}
+\item Cocos2d: (http://cocos2d.org/) es una librería de Python opensource que existe desde febrero de 2008. Su principal 
+ventaja sobre la utilización de JAVA es como ya se mencionó, que este motor permite un manejo mas cómodo de la 
+graficación. Su otra ventaja es que al estar basada sobre OpenGL provee una interfaz mas fluida al usuario.
+\item Unity3D: (http://unity3d.com/) es un motor de vídeo juegos con soporte nativo multiplataforma. Si bien no es 
+opensource como Cocos2d, provee con un entorno de edición que facilita tareas típicas que acelera mucho el 
+desarrollo. En nuestra opinión esta es la mejor de las 2 opciones.
+\end{itemize}
 
 \bibliographystyle{abbrv}
 \bibliography{01}
