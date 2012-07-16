@@ -437,10 +437,10 @@ El análisis de los gráficos de desempeño revela importantes consecuencias del co
 
 \end{itemize}
 
-En las \textit{matrices-Q}, (\textit{cuadros \ref{qmatrix11}, \ref{qmatrix12}, \ref{qmatrix13}}) se puede ver que los valores de utilidad son los esperados en casi todos los casos. Recordar que el primer sensor es el que esta más a la derecha del agente, es decir, el que tiene un ángulo 0 con el campo de visión. Las siguientes posiciones del vector representan los vectores a medida que el angulo incrementa entre el sensor y el campo de visión. Otro elemento a tener en cuenta es que los sensores no se distribuyen equivalentemente, si no mas bien
+En las \textit{matrices-Q}, (\textit{cuadros \ref{qmatrix11}, \ref{qmatrix12}, \ref{qmatrix13}}) se puede ver que los valores de utilidad son los esperados en casi todos los casos. Recordar que el primer sensor es el que está más a la derecha del agente, es decir, el que tiene un ángulo 0 con el campo de visión. Las siguientes posiciones del vector representan los vectores a medida que el ángulo incrementa entre el sensor y el campo de visión. Otro elemento a tener en cuenta es que los sensores no se distribuyen equivalentemente, si no mas bien
 con una mayor concentración en los 4 sensores centrales.
 
-En el Experimento 1.3 (\textit{figura \ref{figExpRes13}}) el desempeño es peor debido a que es más difícil aprender con un obstáculo móvil, que intercepta al agente en distintos lugares.
+En el Experimento 1.3 (\textit{figura \ref{figExpRes13}}) el desempeño es peor debido a que es más difícil aprender enfrentado a un obstáculo móvil, que intercepta al agente en distintos lugares.
 
 \begin{table}
 \begin{center}
@@ -512,15 +512,15 @@ Sensado                     &  LEFT & RIGHT & NONE  & BACK \\ \hline
 
 \subsection{Experimento 2}
 
-Este experimento consiste en un pasillo largo y angosto, con un flujo de agentes moviendose en una dirección. El pasillo tiene 3 metros de ancho y 15 metros de largo. Hay treinta peatones en un extremo, donde uno usa \textit{Q-Learning}, que tienen que llegar al otro lado.
+Este experimento consiste en un pasillo largo y angosto, con un flujo de agentes moviéndose en una dirección. El pasillo tiene 3 metros de ancho y 15 metros de largo. Hay treinta peatones en un extremo, donde uno usa \textit{Q-Learning}, que tienen que llegar al otro lado.
 
 Se experimentó con distintas densidades de agentes. Una densidad \textit{alta} ($2/m^{2}$) y otra \textit{baja} ($1/m^{2}$). Los agentes se mueven con la velocidad de deseo $v_{i}^{0}$.
 
 Los destinos de los agentes se fueron variando en los experimentos, se estudió el caso que los agentes se mueven en lineas rectas
-o hacia puntos aleatorios dentro del area de llegada. Los otros agentes que no se están entrenando usan el modelo social como 
+o hacia puntos aleatorios dentro del área de llegada. Los otros agentes que no se están entrenando usan el modelo social como 
 política de navegación. Un esquema del experimento se encuentra en la \textit{figura \ref{figExp2}}. La \textit{figura \ref{figExp2Screen}} detalla al Simulador corriendo el Experimento 2. La \textit{figura \ref{figExp2ScreenClose}} se acerca sobre el área de los agentes de baja densidad mientras que la \textit{figura \ref{figExp2ScreenHigh}} muestra una alta densidad de los agentes.
 
-En resumen se estudiarán dos variables en este esquema: la densidad y las trayectorias. Esto nos da 4 Experimentos para ejecutar:
+En resumen se estudiarán dos variables en este esquema: la densidad y las trayectorias. Esto nos da 4 escenarios para experimentar:
 
 \begin{itemize}
 \item Experimento 2.1 - Densidad Baja con Destinos Alineados
@@ -563,14 +563,14 @@ En resumen se estudiarán dos variables en este esquema: la densidad y las trayec
 
 
 \subsubsection{Resultados}
-Los resultados del Experimento 2 revelan que la forma de presentar el estado escogida resulta inadecuada cuando aumenta considerablemente la densidad de peatones. Al tener dicha densidad, un agente que opte por detenerse chocará en el agente detrás.
+Los resultados del Experimento 2 revelan que la forma de presentar el estado escogida resulta inadecuada cuando aumenta considerablemente la densidad de peatones. Al tener dicha densidad, un agente que opte por detenerse chocará con el agente detrás.
 Debido a nuestro esquema de sensado, el agente no puede aprender de dicha situación porque sencillamente no lo percibe. Aún en los experimentos de baja densidad el resultado muestra que por más que llega un número de veces considerable, parecido al Experimento 1, la tasa de fracasos vs éxitos no cambia. El agente sigue colisionando en la misma proporción aún después de terminar la etapa de aprendizaje.
 
 Las \textit{matrices-Q} del Experimento 2 se excluyeron del documento debido a su extensión, de cientos de estados, y difíciles de interpretar a simple vista. Sin embargo se observó que en muchos casos todas las acciones asociadas a un estado tienen utilidades muy similares o los valores de utilidad más altos no están asociados a la acción que uno esperaría. Esto sucede por varias razones:
 
 \begin{itemize}
 	\item El agente se encuentra atrapado entre otros agentes y no existe una acción que lo haga salir de esa posición, tome la acción que tome choca con otro agente en los costados y por eso se lo recompensa de manera negativa.
-	\item El agente se encuentra atrapado entre otros agentes, si decide frenar sucede muy seguido que un agente más retrasado lo choca y por eso se lo recompensa de manera negativa también. Por más que el agente continúe moviendose a la velocidad promedio del grupo, existen colisiones por pequeños destellos de velocidad dentro del grupo. Debido al modelo de fuerza social, cuando dos agentes estan muy cerca se producen fuerzas que ``empujan'' con gran aceleración a alguno de estos agentes. 
+	\item El agente se encuentra atrapado entre otros agentes, si decide frenar sucede muy seguido que un agente más retrasado lo choca y por eso se lo recompensa de manera negativa también. Por más que el agente continúe moviéndose a la velocidad promedio del grupo, existen colisiones por pequeños destellos de velocidad dentro del grupo. Debido al modelo de fuerza social, cuando dos agentes estan muy cerca se producen fuerzas que ``empujan'' con gran aceleración a alguno de estos agentes. 
 	\item Cuando el agente aplica una fuerza correctiva, no puede moderar la magnitud de la misma, lo que causa que al tratar de eludir un obstáculo termine golpeando a otro.
 	\item Los otros agentes también eluden al agente debido al modelo de fuerza social. Este reflejo salva malas decisiones que tomó el agente y que no se castigan.
 \end{itemize}
@@ -617,7 +617,7 @@ El Experimento 3 es una modificación del Ejercicio 1, donde se reemplazó el osbt
 	\item Agente con velocidad de deseo normal y los obstáculos son ahora agentes móviles que se mueven en bloque todos con la misma velocidad de deseo en sentido opuesto al del agente que aprende.
 \end{itemize}
 
-Un esquema representativo del experimento se encuentra detallado en la \textit{figura \ref{figExp3}}. La \textit{figura \ref{figExp3Screen}} es una imagen de este llevandose a cabo. Se puede apreciar que el bosque de agentes es bastante denso pero tiene caminos posibles por donde el agente entrenado con \textit{Q-Learning} puede transitar. Este es de color rojo mientras que los obstáculos son de color ocre.
+Un esquema representativo del experimento se encuentra detallado en la \textit{figura \ref{figExp3}}. La \textit{figura \ref{figExp3Screen}} es una imagen de este llevándose a cabo. Se puede apreciar que el bosque de agentes es bastante denso pero tiene caminos posibles por donde el agente entrenado con \textit{Q-Learning} puede transitar. Este es de color rojo mientras que los obstáculos son de color ocre.
 
 \begin{figure}
 \centering
@@ -635,11 +635,11 @@ Un esquema representativo del experimento se encuentra detallado en la \textit{f
 
 \subsubsection{Resultados}
 
-El Experimento 3.1 arroja resultados que no son positivos ni esperados. Uno esperaría encontrar algún tipo de impacto en las colisiones vs las llegadas cuando el agente deja de explorar y explota la política aprendida. Sin embargo esto no sucede y las tendencias parecen mantenerse a lo largo de la simulación. Es valioso rescatar que aún así el agente logro llegar a un ritmo constante a destino.
+El Experimento 3.1 arroja resultados que no son positivos ni esperados. Uno esperaría encontrar algún tipo de impacto en las colisiones vs las llegadas cuando el agente deja de explorar y explota la política aprendida. Sin embargo esto no sucede y las tendencias parecen mantenerse a lo largo de la simulación. Es valioso rescatar que aún así el agente logró llegar a un ritmo constante a destino.
 
-En el Experimento 3.2 podemos concluir que el agente prácticamente no llego a destino. En realidad el agente logro llegar apenas unas 4 veces. Esto nos conduce a pensar que el alcance de visión del agente no es el adecuado para la velocidad que tiene. La velocidad es demasiado alta y no le permite actuar a tiempo y evitar la colisión.
+En el Experimento 3.2 podemos concluir que el agente prácticamente no llegó a destino. En realidad el agente logró llegar apenas unas 4 veces. Esto nos conduce a pensar que el alcance de visión del agente no es el adecuado para la velocidad que tiene. La velocidad es demasiado alta y no le permite actuar a tiempo y evitar la colisión.
 
-El Experimento 3.3 presentó un resultado inesperado y curioso. En vista de los experimentos anteriores, era esperable que el agente obtuviera malos resultados dada la dificultad agregada a los Experimentos o a lo sumo tendría un desempeño igual o peor que el Experimento 3.1. Al ver los gráficos (\textit{figura \ref{figExpRes32}}) vemos que sorprendentemente le fue mejor. Al consultar los replays aprendimos que la razón de esto es que los agentes obstáculos también eludían al agente. Si bien esto también debía ocurrir en el Experimento 2, en este los agentes obstáculos tenian mas lugar para maniobrar y lo hacían de una manera mucho más efectiva.
+El Experimento 3.3 presentó un resultado inesperado y curioso. En vista de los experimentos anteriores, era esperable que el agente obtuviera malos resultados dada la dificultad agregada a los Experimentos o a lo sumo tendría un desempeño igual o peor que el Experimento 3.1. Al ver los gráficos (\textit{figura \ref{figExpRes32}}) vemos que sorprendentemente le fue mejor. Al consultar los replays aprendimos que la razón de esto es que los agentes obstáculos también eludían al agente. Si bien esto también debía ocurrir en el Experimento 2, en este los agentes obstáculos tenían más lugar para maniobrar y lo hacían de una manera mucho más efectiva.
 
 \begin{figure}
 \centering
@@ -699,7 +699,7 @@ El Experimento 4 se propone evaluar una política de navegación previamente obten
 
 Los resultados de este experimento están decididamente relacionados con los anteriores y otra vez sorprenden. El experimento que peor desempeño tuvo, el Experimento 4.1 (\textit{figura \ref{figExpRes41}}), era el único que tenía una \textit{Matriz de Q} que contenía algún tipo de aprendizaje.
 
- El Experimento 4.2 y el Experimento 4.3 tuvieron un mejor desempeño. Esto a pesar que en el Experimento 3.2 el agente llego una cantidad despreciable de veces, y en el Experimento 3.3 el agente fue salvado en su mayoría por los otros agentes que lo eludían. Esto nos conduce nuevamente a pensar en los otros agentes y como estos eluden al agente entrenado. Se ve que si el agente no aprendió nada, es inclusive mas beneficioso para los otros que si hubiera aprendido a eludir él mismo (caso Experimento 4.1). 
+ El Experimento 4.2 y el Experimento 4.3 tuvieron un mejor desempeño. Esto a pesar que en el Experimento 3.2 el agente llegó una cantidad despreciable de veces, y en el Experimento 3.3 el agente fue salvado en su mayoría por los otros agentes que lo eludían. Esto nos conduce nuevamente a pensar en los otros agentes y cómo estos eluden al agente entrenado. Se ve que si el agente no aprendió nada, es inclusive más beneficioso para los otros que si hubiera aprendido a eludir él mismo (caso Experimento 4.1). 
 
  Una razón de esto es que si los dos quieren eludirse, es posible que los dos decidan eludir por el mismo lado y chocar, mientras que siempre es más fácil eludir a algo inmóvil. Por más que hubo una leve mejora en el Experimento 4.3 respecto del Experimento 4.2, es importante recalcar que la diferencia es mínima en cantidad de llegadas exitosas.
 
