@@ -37,7 +37,7 @@ La modelización y simulación de muchedumbres es un problema de interés para vari
 
 La investigación de la efectividad de políticas de navegación se realizó a través de un simulador. El simulador fue implementado por el equipo y permitió la creación de entornos y distintos tipo de agentes para evaluar el aprendizaje. A su vez el simulador graba las simulaciones y las reproduce posteriormente para poder analizar los resultados.
 
-Los resultados a favor del \textit{aprendizaje por refuerzo} son variados. Se observan mejoras en ciertos entornos simples, pero en otros mas complejos, donde el agente debe interactuar con alta densidad de obstáculos se nota una tendencia a sobrecompensar y fallar repetidamente al intentar esquivarlos.
+Los resultados a favor del \textit{aprendizaje por refuerzo} son variados. Se observan mejoras en ciertos entornos simples, pero en otros mas complejos, donde el agente debe interactuar con alta densidad de obstáculos se nota una tendencia a sobrecompensar y fallar repetidamente al intentar eludirlos.
 
 \pagebreak
 
@@ -137,7 +137,7 @@ La ecuación es analoga a la de los agentes salvo por la dirección, que en este c
 
 \subsubsection{Desventajas}
 
-La principal desventaja del model de fuerza social, y el motivo por el cúal se busca una alternativa a este, es que los agentes tienden a atascarse cuando se enfrentan a un obstáculo que yace en la dirección al objetivo. Se pretende solucionar este problema permitiendo al agente ``esquivar'' obstáculos antes de llegar a la situación de contacto.
+La principal desventaja del model de fuerza social, y el motivo por el cúal se busca una alternativa a este, es que los agentes tienden a atascarse cuando se enfrentan a un obstáculo que yace en la dirección al objetivo. Se pretende solucionar este problema permitiendo al agente ``eludir'' obstáculos antes de llegar a la situación de contacto.
 
 \begin{figure}
 \centering
@@ -589,8 +589,8 @@ Las \textit{matrices-Q} del Experimento 2 se excluyeron del documento debido a s
 \begin{itemize}
 	\item El agente se encuentra atrapado entre otros agentes y no existe una acción que lo haga salir de esa posición, tome la acción que tome choca con otro agente en los costados y por eso se lo recompensa de manera negativa.
 	\item El agente se encuentra atrapado entre otros agentes, si decide frenar sucede muy seguido que un agente más retrasado lo choca y por eso se lo recompensa de manera negativa también. Por más que el agente continúe moviendose a la velocidad promedio del grupo, existen colisiones por pequeños destellos de velocidad dentro del grupo. Debido al modelo de fuerza social, cuando dos agentes estan muy cerca se producen fuerzas que ``empujan'' con gran aceleración a alguno de estos agentes. 
-	\item Cuando el agente aplica una fuerza correctiva, no puede moderar la magnitud de la misma, lo que causa que al tratar de esquivar un obstáculo termine golpeando a otro.
-	\item Los otros agentes también esquivan al agente debido al modelo de fuerza social. Este reflejo salva malas decisiones que tomó el agente y que no se castigan.
+	\item Cuando el agente aplica una fuerza correctiva, no puede moderar la magnitud de la misma, lo que causa que al tratar de eludir un obstáculo termine golpeando a otro.
+	\item Los otros agentes también eluden al agente debido al modelo de fuerza social. Este reflejo salva malas decisiones que tomó el agente y que no se castigan.
 \end{itemize}
 
 
@@ -657,7 +657,7 @@ El Experimento 3.1 arroja resultados que no son positivos ni esperados. Uno espe
 
 En el Experimento 3.2 podemos concluir que el agente prácticamente no llego a destino. En realidad el agente logro llegar apenas unas 4 veces. Esto nos conduce a pensar que el alcance de visión del agente no es el adecuado para la velocidad que tiene. La velocidad es demasiado alta y no le permite actuar a tiempo y evitar la colisión.
 
-El Experimento 3.3 presentó un resultado inesperado y curioso. En vista de los experimentos anteriores, era esperable que el agente obtuviera malos resultados dada la dificultad agregada a los Experimentos o a lo sumo tendría un desempeño igual o peor que el Experimento 3.1. Al ver los gráficos (\textit{figura \ref{figExpRes32}}) vemos que sorprendentemente le fue mejor. Al consultar los replays aprendimos que la razón de esto es que los agentes obstáculos también esquivaban al agente. Si bien esto también debía ocurrir en el Experimento 2, en este los agentes obstáculos tenian mas lugar para maniobrar y lo hacían de una manera mucho más efectiva.
+El Experimento 3.3 presentó un resultado inesperado y curioso. En vista de los experimentos anteriores, era esperable que el agente obtuviera malos resultados dada la dificultad agregada a los Experimentos o a lo sumo tendría un desempeño igual o peor que el Experimento 3.1. Al ver los gráficos (\textit{figura \ref{figExpRes32}}) vemos que sorprendentemente le fue mejor. Al consultar los replays aprendimos que la razón de esto es que los agentes obstáculos también eludían al agente. Si bien esto también debía ocurrir en el Experimento 2, en este los agentes obstáculos tenian mas lugar para maniobrar y lo hacían de una manera mucho más efectiva.
 
 \begin{figure}
 \centering
@@ -717,9 +717,9 @@ El Experimento 4 se propone evaluar una política de navegación previamente obten
 
 Los resultados de este experimento están decididamente relacionados con los anteriores y otra vez sorprenden. El experimento que peor desempeño tuvo, el Experimento 4.1 (\textit{figura \ref{figExpRes41}}), era el único que tenía una \textit{Matriz de Q} que contenía algún tipo de aprendizaje.
 
- El Experimento 4.2 y el Experimento 4.3 tuvieron un mejor desempeño. Esto a pesar que en el Experimento 3.2 el agente llego una cantidad despreciable de veces, y en el Experimento 3.3 el agente fue salvado en su mayoría por los otros agentes que lo esquivaban. Esto nos conduce nuevamente a pensar en los otros agentes y como estos esquivan al agente entrenado. Se ve que si el agente no aprendió nada, es inclusive mas beneficioso para los otros que si hubiera aprendido a esquivar él mismo (caso Experimento 4.1). 
+ El Experimento 4.2 y el Experimento 4.3 tuvieron un mejor desempeño. Esto a pesar que en el Experimento 3.2 el agente llego una cantidad despreciable de veces, y en el Experimento 3.3 el agente fue salvado en su mayoría por los otros agentes que lo eludían. Esto nos conduce nuevamente a pensar en los otros agentes y como estos eluden al agente entrenado. Se ve que si el agente no aprendió nada, es inclusive mas beneficioso para los otros que si hubiera aprendido a eludir él mismo (caso Experimento 4.1). 
 
- Una razón de esto es que si los dos quieren esquivarse, es posible que los dos decidan esquivar por el mismo lado y chocar, mientras que siempre es más fácil esquivar a algo inmóvil. Por más que hubo una leve mejora en el Experimento 4.3 respecto del Experimento 4.2, es importante recalcar que la diferencia es mínima en cantidad de llegadas exitosas.
+ Una razón de esto es que si los dos quieren eludirse, es posible que los dos decidan eludir por el mismo lado y chocar, mientras que siempre es más fácil eludir a algo inmóvil. Por más que hubo una leve mejora en el Experimento 4.3 respecto del Experimento 4.2, es importante recalcar que la diferencia es mínima en cantidad de llegadas exitosas.
 
 
 \begin{figure}
@@ -764,7 +764,7 @@ Otros posibles enfoques para intentar mejorar esta limitación sería:
 
 \subsection{Modelo Propuesto}
 
-La idea atrás de este modelo es que el maniobrar en situaciones de alta densidad de obstáculos sea manejado por el modelo de fuerza social pero que el agente tenga la suficiente inteligencia para esquivar obstáculos que no le reportan un perjuicio inmediatamente.
+La idea atrás de este modelo es que el maniobrar en situaciones de alta densidad de obstáculos sea manejado por el modelo de fuerza social pero que el agente tenga la suficiente inteligencia para eludir obstáculos que no le reportan un perjuicio inmediatamente.
 
 Para lograr esto los sensores de Q-Learning solo podrían sensar obstáculos mas allá del rango inmediato del agente, es decir a partir de los 2 o 3 metros.
 El esquema de refuerzo no contemplaría refuerzos negativos sino que recompensaría al agente cuando sus sensores detecten menos obstáculos que en una iteración anterior. Se debería dar mayor importancia al modelo de fuerza social cuando hay obstáculos cerca ya que siempre será más importante la resolución inmediata de conflictos.
